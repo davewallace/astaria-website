@@ -7,15 +7,17 @@
 
     <p>Mala, co-founder of Astaria's Cartographic Society has comissioned the gathering of as many maps as possible. After much debate, many broken pencils and resulting re-exploration parties - the wizened (and strangely blind) old man has released a series of maps which may be considered as 'Official';</p>
 
+    <map-viewer></map-viewer>
+
   </div>
 </template>
 
 <script>
-import Palette from './palette'
+import MapViewer from './map-viewer'
 
 // TODO: replace with API data
-let colorData = {
-  brand: {
+let mapData = {
+  continent: {
     primary: '#FFF',
     secondary: '#000'
   }
@@ -24,11 +26,11 @@ let colorData = {
 export default {
   name: 'maps',
   components: {
-    palette: Palette
+    'map-viewer': MapViewer
   },
   data () {
     return {
-      colorData: colorData
+      mapData: mapData
     }
   },
   methods: {
