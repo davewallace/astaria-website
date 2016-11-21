@@ -1,9 +1,11 @@
 {
-  "name": "styleguide",
+  "name": "Astaria",
   "version": "1.0.0",
-  "description": "Styleguides built on vue.js",
+  "description": "Astaria's official website, built on vue.js",
   "author": "danjah@gmail.com",
-  "private": true,
+  "license": {
+    "type": "LicenseRef-GPLv3"
+  },
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
