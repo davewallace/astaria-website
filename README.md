@@ -1,4 +1,4 @@
-# test-vue-cli
+# Astaria MUD
 
 > A Vue.js project
 
@@ -9,6 +9,8 @@
 
 ``` bash
 # install dependencies
+yarn
+_or_
 npm install
 
 # serve with hot reload at localhost:8080
