@@ -23,4 +23,5 @@ export default {
 
 <style lang="less">
   @import './less/theme-base.less';
+  @import './less/theme-astaria.less';
 </style>
