@@ -22,6 +22,7 @@
 
     <h2>The Annals History</h2>
     <p>MUDs have evolved like everything else on the internet. They began as elementary, primitive multi-user 'chat rooms' as far back as 1975, some tied in with automated D&amp;D-style Dungeon Masters, some have since been adapted into graphical games which are still widely enjoyed today. <a href="http://en.wikipedia.org/wiki/MUD" target="_blank">Wikipedia's article on MUDs</a> contains more information than any sane person should ever know.</p>
+    <p><strong>Astaria was first launched in 1994.</strong></p>
 
     <h2>Simplicity</h2>
     <p>There's no graphics, other than the occasional piece of ASCII art, the long list of Wizards contributing not only their invaluable time to writing the code behind the MUD, but also the rich, feature-filled content, <router-link to="/resources">just itching to be explored...</router-link></p>
