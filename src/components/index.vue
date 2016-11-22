@@ -1,7 +1,3 @@
-<style lang="less">
-  @import '../less/theme.less';
-</style>
-
 <template>
   <div>
 
