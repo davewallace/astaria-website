@@ -11,6 +11,11 @@
 
     <p>Become part of the rich history of adventures who have made their home in a world that is immediately fun and will continue to challenge and stimulate for years to come. Step through the portal, and immerse yourself in the mythical world, Astaria.</p>
 
+    <ul>
+      <li>Play Astaria today!</li>
+      <li><a href="http://www.mudconnect.com/mud-bin/vote_rank.cgi?mud=Astaria" target="_blank">Vote for Astaria!</a></li>
+      <li>Donate &amp; save lives!</li>
+    </ul>
 
     <h2>New to the MUD gaming experience?</h2>
     <p>Fairynuff. What with all of the graphic-based games out there, why would you want anything else?</p>
