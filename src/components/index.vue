@@ -38,9 +38,6 @@ file, update them and the text equivalents will be replaced at build time.
     <h2>It's free</h2>
     <p>Well, Astaria is. There do exist pay-to-play MUDs, however Astaria has always, and will always be free to play.</p>
 
-    <h2>It's nich&eacute;</h2>
-    <p>Yeah, niche-aye, as in niche plus clich&eacute;. You'll probably either love or hate playing in Astaria, give it go and find out. Some of the many, many adventurers to have graced our Realm have been; Yahoo! developers, club DJ's, Radio presenters, bored housewives, poor saps with 28k modems, naughty school kids who never get caught because their game appears study-related, known criminals, and so many others.</p>
-
   </div>
 </template>
 
