@@ -1,12 +1,12 @@
 <template>
-  <div class="panel" :class="componentclasses">
+  <div class="panel" :class="ui_classes">
     <div class="panel-content">
       <slot></slot>
     </div>
   </div>
 </template>
 <style lang="less">
-@import '../less/system-variables.less';
+@import '../less/variables.less';
 .panel {
   margin-bottom: @grid-pad * 2;
 
@@ -29,7 +29,7 @@ export default {
   },
 
   props: {
-    'componentclasses': String
+    'ui_classes': String
   },
 
   computed: {
@@ -44,6 +44,3 @@ export default {
   }
 }
 </script>
-
-<style lang="less">
-</style>
