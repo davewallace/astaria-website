@@ -1,17 +1,49 @@
 // Imported once into root App.js
-@import 'style/_variable';
+@import '_variable';
+@import '_mixins';
 
-// body {
-//   color: $color_fill--primary-inverse;
-//   background: $color_fill--primary;
-// }
+body {
+  color: $color_fill--primary-inverse;
+  background: $color_fill--primary;
+}
 
+a {
+  color: $color_fill--primary-inverse;
+}
+
+.view-container {
+}
+
+/**
+ * Main navigation
+ **/
+.view-navigation--main {
+  @include unlist();
+
+  display: flex;
+  justify-content: space-evenly;
+
+  border: 1px dashed orange;
+}
+  .view-navigation--main-item {
+    @include unlist();
+
+    height: 64px;
+    border: 1px solid red;
+  }
+
+/**
+ * Default root styles
+ **/
 .view-root {
   margin: 40px 80px;
   padding: 20px 10px;
-  background-color: rgba(0, 0, 0, .24);
+  background-color: rgba(255, 255, 255, .2);
 }
 
+/**
+ *
+ **/
 .view-home {
 
   .columns {
@@ -26,14 +58,14 @@
     .columns_column--fixed {
       margin-left: auto; // "any positive free space is distributed to auto margins in that dimension"
     }
-      .cta {
+      .call-to-arms {
         display: flex;
         min-width: 128px;
         height: 158px;
-        background: transparent url('./images/icon_emblem-warriors--white-128x128.png') center top no-repeat;
+        background: transparent url('../images/icon_emblem-warriors--white-128x128.png') center top no-repeat;
         background-size: contain;
 
-        &-label {
+        &_label {
           display: block;
           margin-top: auto;
         }

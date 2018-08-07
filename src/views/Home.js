@@ -21,8 +21,8 @@ const Home = () => (
           <p>Step through the portal and immerse yourself in the mythical realm of Astaria...</p>
         </div>
         <div className="columns_column--fixed columns_column-gutter"></div>
-        <Link to="/client" className="columns_column--fixed cta">
-          <span className="cta-label">Give Astaria a try!</span>
+        <Link to="/client" className="columns_column--fixed call-to-arms">
+          <span className="call-to-arms_label">Give Astaria a try!</span>
         </Link>
 
         {/*

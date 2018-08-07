@@ -15,30 +15,11 @@ import ViewResources from './views/Resources'
 
 // Style
 import 'normalize.css';
-import './App.css';
+import './style/App.css';
 
 const App = () => (
   <Router>
-    <div>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/client">Client</Link>
-        </li>
-        <li>
-          <Link to="/maps">Maps</Link>
-        </li>
-        <li>
-          <Link to="/resources">Resources</Link>
-        </li>
-        <li>
-          <Link to="/gallery">Gallery</Link>
-        </li>
-      </ul>
-
-      <hr />
+    <div className="view-container">
 
       {/* Using a Switch allows us to declare our expected routes, while also
           accommodating non-matched routes (a 404 essentially) and also drop in
@@ -52,6 +33,24 @@ const App = () => (
         {/* <Redirect from="/resources" to="/maps" /> */}
         <Route component={ViewURLNotFound} /> {/* 404 Route */}
       </Switch>
+
+      <ul className="view-navigation--main">
+        <li className="view-navigation--main-item">
+          <Link to="/">Home</Link>
+        </li>
+        <li className="view-navigation--main-item">
+          <Link to="/client">Client</Link>
+        </li>
+        <li className="view-navigation--main-item">
+          <Link to="/maps">Maps</Link>
+        </li>
+        <li className="view-navigation--main-item">
+          <Link to="/resources">Resources</Link>
+        </li>
+        <li className="view-navigation--main-item">
+          <Link to="/gallery">Gallery</Link>
+        </li>
+      </ul>
 
     </div>
   </Router>
