@@ -6,11 +6,11 @@ const numberOfGuilds = 'nine'
 
 const Home = () => (
 
-  <div className="view-root">
+  <div className="view-root view-home">
     <h2>Once more unto the breach, dear friends...</h2>
 
     <div componentclasses="test">
-      <p>Welcome traveller, your sojourn awaits. Only a thin barrier remains between you and a realm where your mind can soar, unbound from the fetters of the mundane world.</p>
+      <h3>Welcome traveller, your sojourn awaits. Only a thin barrier remains between you and a realm where your mind can soar, unbound from the fetters of the mundane world.</h3>
 
       <p>Let your spirit take shape in one of { numberOfRaces } races, cast your will into one of { numberOfGuilds } guilds and begin your journey towards destiny. Forge friendships, gain power, work with allies and vanquish foes.</p>
 
@@ -19,6 +19,7 @@ const Home = () => (
       <p>Step through the portal and immerse yourself in the mythical realm of Astaria...</p>
     </div>
 
+    {/*
     <div>
       <h2>New to the MUD gaming experience?</h2>
       <p>With countless graphic-based games out there, why would you want anything else?</p>
@@ -39,12 +40,27 @@ const Home = () => (
         <p>Well, Astaria is. There do exist pay-to-play MUDs, but Astaria has and will always be free to play.</p>
       </div>
     </div>
+    */}
 
     <div>
-      <ul className="panel-section">
-        <li>Play Astaria today!</li>
+      <ul className="cta">
+        <li>
+          <Link to="/client">
+            <span className="cta-label cta-label--secondary">Step 1: Get the game (it's free)</span>
+          </Link>
+        </li>
+        <li>
+          <Link to="/client">
+            <span className="cta-label cta-label--primary">Explore!</span>
+          </Link>
+        </li>
+        {/*
+          This old ass link curently throws a malware warning in Chrome! No thanks. Leaving it here in case they ever fix it.
+
         <li><a href="http://www.mudconnect.com/mud-bin/vote_rank.cgi?mud=Astaria" target="_blank" rel="noopener noreferrer">Vote for Astaria!</a></li>
         <li>Donate &amp; save lives!</li>
+
+        */}
       </ul>
     </div>
 
