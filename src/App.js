@@ -14,6 +14,7 @@ import ViewMaps from './views/Maps'
 import ViewResources from './views/Resources'
 
 // Style
+import 'normalize.css';
 import './App.css';
 
 const App = () => (
