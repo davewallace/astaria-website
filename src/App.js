@@ -1,7 +1,13 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-const BasicExample = () => (
+// Routing, as described here: https://reacttraining.com/react-router/web/
+// Add 'Rediect' to this chain if it is needed at some point, there's an example
+// commented out within the Router block below.
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+
+import ViewHome from './views/Home'
+
+const App = () => (
   <Router>
     <div>
       <ul>
@@ -9,37 +15,62 @@ const BasicExample = () => (
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/about">About</Link>
+          <Link to="/client">Client</Link>
         </li>
         <li>
-          <Link to="/topics">Topics</Link>
+          <Link to="/maps">Maps</Link>
+        </li>
+        <li>
+          <Link to="/resources">Resources</Link>
+        </li>
+        <li>
+          <Link to="/gallery">Gallery</Link>
         </li>
       </ul>
 
       <hr />
 
-      <Route exact path="/" component={Home} />
-      <Route path="/about" component={About} />
-      <Route path="/topics" component={Topics} />
+      {/* Using a Switch allows us to declare our expected routes, while also
+          accommodating non-matched routes (a 404 essentially) and also drop in
+          redirects as needed */}
+      <Switch>
+        <Route exact path="/" component={ViewHome} />
+        <Route path="/client" component={Client} />
+        <Route path="/maps" component={Maps} />
+        <Route path="/resources" component={Resources} />
+        <Route path="/gallery" component={Gallery} />
+        {/* <Redirect from="/resources" to="/maps" /> */}
+        <Route component={NoMatch} /> {/* 404 Route */}
+      </Switch>
+
     </div>
   </Router>
 );
 
-const Home = () => (
+const NoMatch = () => (
   <div>
-    <h2>Home</h2>
+    <h2>404</h2>
   </div>
 );
 
-const About = () => (
+const Client = () => (
   <div>
-    <h2>About</h2>
+    <h2>Client</h2>
   </div>
 );
 
-const Topics = ({ match }) => (
+const Gallery = () => (
   <div>
-    <h2>Topics</h2>
+    <h2>Gallery</h2>
+  </div>
+);
+
+/**
+ *
+ **/
+const Resources = ({ match }) => (
+  <div>
+    <h2>Resources</h2>
     <ul>
       <li>
         <Link to={`${match.url}/rendering`}>Rendering with React</Link>
@@ -52,19 +83,70 @@ const Topics = ({ match }) => (
       </li>
     </ul>
 
-    <Route path={`${match.url}/:topicId`} component={Topic} />
+    <Route path={`${match.url}/:resourceId`} component={Resource} />
     <Route
       exact
       path={match.url}
-      render={() => <h3>Please select a topic.</h3>}
+      render={() => <h3>Please select a resource.</h3>}
     />
   </div>
 );
 
-const Topic = ({ match }) => (
+const Resource = ({ match }) => (
   <div>
-    <h3>{match.params.topicId}</h3>
+    <h3>{match.params.resourceId}</h3>
   </div>
 );
 
-export default BasicExample;
+/**
+ *
+ **/
+const Maps = ({ match }) => (
+  <div>
+    <h2>Maps</h2>
+    <ul>
+      <li>
+        <Link to={`${match.url}/astaria-proper`}>Astaria Proper</Link>
+      </li>
+      <li>
+        <Link to={`${match.url}/astaria-wilderness`}>Astaria Wilderness</Link>
+      </li>
+      <li>
+        <Link to={`${match.url}/altheon`}>Altheon</Link>
+      </li>
+      <li>
+        <Link to={`${match.url}/sunhillow-rime`}>Sunhillow &amp; The Rimelands</Link>
+      </li>
+      <li>
+        <Link to={`${match.url}/rising-sun`}>Rising Sun (Sakai)</Link>
+      </li>
+      <li>
+        <Link to={`${match.url}/the-wastes`}>The Wastes</Link>
+      </li>
+      <li>
+        <Link to={`${match.url}/nahanet`}>Nahanet</Link>
+      </li>
+      <li>
+        <Link to={`${match.url}/sable`}>Sable (only a legend..)</Link>
+      </li>
+    </ul>
+
+    <Route path={`${match.url}/:mapId`} component={Map} />
+    <Route
+      exact
+      path={match.url}
+      render={() => <h3>Please select a map.</h3>}
+    />
+  </div>
+);
+
+const Map = ({ match }) => (
+  <div>
+    <h3>{match.params.mapId}</h3>
+  </div>
+);
+
+/**
+ * Export App entry point
+ **/
+export default App;
