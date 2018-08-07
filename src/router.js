@@ -50,6 +50,7 @@ export default new VueRouter({
     { path: '/maps', component: load('maps') },
     { path: '/resources', component: load('resources') },
     { path: '/gallery', component: load('gallery') },
+    { path: '/client', component: load('client') },
     { path: '*', component: load('error404') } // Not found
   ]
 })

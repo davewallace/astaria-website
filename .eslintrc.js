@@ -17,6 +17,11 @@ module.exports = {
     // allow async-await
     'generator-star-spacing': 0,
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
+    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
+    // i quite like semis
+    'no-extra-semi': 0,
+    // allow freedom with comments
+    'line-comment-position': 0,
+    'spaced-comment': 0
   }
 }
