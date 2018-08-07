@@ -1,14 +1,37 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { BrowserRouter as Route, Link } from "react-router-dom";
 
-const Resources = () => (
+/**
+ *
+ **/
+const Resources = ({ match }) => (
 
   <div className="view-root">
+    <h2>Resources</h2>
+    <ul>
+      <li>
+        <Link to={`${match.url}/resource`}>Resources Sub-menu item 1</Link>
+      </li>
+      <li>
+        <Link to={`${match.url}/resource`}>Resources Sub-menu item 1</Link>
+      </li>
+      <li>
+        <Link to={`${match.url}/resource`}>Resources Sub-menu item 1</Link>
+      </li>
+    </ul>
 
-    <h1>Software &amp; Downloads</h1>
+    <Route path={`${match.url}/:resourceId`} component={Resource} />
+    <Route
+      exact
+      path={match.url}
+      render={() => <h3>Please select a resource.</h3>}
+    />
+  </div>
+);
 
-    <p>In the past, the Adventurers of Astaria have used a variety of software to connect to Astaria. First and foremost, the Administration recommend downloading “Astaria” - a (free) feature-rich, custom-built application developed by one of our own:</p>
-
+const Resource = ({ match }) => (
+  <div>
+    <h3>{match.params.resourceId}</h3>
   </div>
 );
 

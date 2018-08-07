@@ -7,6 +7,11 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 // View imports
 import ViewHome from './views/Home'
+import ViewURLNotFound from './views/URLNotFound'
+import ViewClient from './views/Client'
+import ViewGallery from './views/Gallery'
+import ViewMaps from './views/Maps'
+import ViewResources from './views/Resources'
 
 // Style
 import './App.css';
@@ -39,115 +44,16 @@ const App = () => (
           redirects as needed */}
       <Switch>
         <Route exact path="/" component={ViewHome} />
-        <Route path="/client" component={Client} />
-        <Route path="/maps" component={Maps} />
-        <Route path="/resources" component={Resources} />
-        <Route path="/gallery" component={Gallery} />
+        <Route path="/client" component={ViewClient} />
+        <Route path="/maps" component={ViewMaps} />
+        <Route path="/resources" component={ViewResources} />
+        <Route path="/gallery" component={ViewGallery} />
         {/* <Redirect from="/resources" to="/maps" /> */}
-        <Route component={NoMatch} /> {/* 404 Route */}
+        <Route component={ViewURLNotFound} /> {/* 404 Route */}
       </Switch>
 
     </div>
   </Router>
-);
-
-const NoMatch = () => (
-  <div>
-    <h2>404</h2>
-  </div>
-);
-
-const Client = () => (
-  <div>
-    <h2>Client</h2>
-  </div>
-);
-
-const Gallery = () => (
-  <div>
-    <h2>Gallery</h2>
-  </div>
-);
-
-/**
- *
- **/
-const Resources = ({ match }) => (
-  <div>
-    <h2>Resources</h2>
-    <ul>
-      <li>
-        <Link to={`${match.url}/rendering`}>Rendering with React</Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/components`}>Components</Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/props-v-state`}>Props v. State</Link>
-      </li>
-    </ul>
-
-    <Route path={`${match.url}/:resourceId`} component={Resource} />
-    <Route
-      exact
-      path={match.url}
-      render={() => <h3>Please select a resource.</h3>}
-    />
-  </div>
-);
-
-const Resource = ({ match }) => (
-  <div>
-    <h3>{match.params.resourceId}</h3>
-  </div>
-);
-
-/**
- *
- **/
-const Maps = ({ match }) => (
-  <div>
-    <h2>Maps</h2>
-    <ul>
-      <li>
-        <Link to={`${match.url}/astaria-proper`}>Astaria Proper</Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/astaria-wilderness`}>Astaria Wilderness</Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/altheon`}>Altheon</Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/sunhillow-rime`}>Sunhillow &amp; The Rimelands</Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/rising-sun`}>Rising Sun (Sakai)</Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/the-wastes`}>The Wastes</Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/nahanet`}>Nahanet</Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/sable`}>Sable (only a legend..)</Link>
-      </li>
-    </ul>
-
-    <Route path={`${match.url}/:mapId`} component={Map} />
-    <Route
-      exact
-      path={match.url}
-      render={() => <h3>Please select a map.</h3>}
-    />
-  </div>
-);
-
-const Map = ({ match }) => (
-  <div>
-    <h3>{match.params.mapId}</h3>
-  </div>
 );
 
 /**
