@@ -1,17 +1,37 @@
 /**
  *
  **/
+/**
+ *
+ **/
 .view-root {
   margin: 40px 80px;
   padding: 20px 10px;
   background-color: rgba(0, 0, 0, 0.24); }
 
-.view-home .cta-label {
-  position: relative;
-  background: transparent url("./images/icon_emblem-warriors--white-128x128.png") center center no-repeat; }
-  .view-home .cta-label--primary {
-    z-index: 2;
-    background: white; }
-  .view-home .cta-label--secondary {
-    z-index: 1;
-    background: grey; }
+.view-home .columns {
+  display: flex; }
+
+.view-home .columns_column-gutter {
+  width: 50px; }
+
+.view-home .columns_column--fixed {
+  margin-left: auto; }
+
+.view-home .cta {
+  display: flex;
+  min-width: 128px;
+  height: 158px;
+  background: transparent url("./images/icon_emblem-warriors--white-128x128.png") center top no-repeat;
+  background-size: contain; }
+  .view-home .cta-label {
+    display: block;
+    margin-top: auto; }
+
+/**
+ * Client-side connection View. In this view, a user may connect to Astaria.
+ **/
+.view-client .webclient-container {
+  min-height: 25vh;
+  width: 100%;
+  border: 2px dashed red; }

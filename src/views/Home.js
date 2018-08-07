@@ -9,14 +9,33 @@ const Home = () => (
   <div className="view-root view-home">
     <h2>Once more unto the breach, dear friends...</h2>
 
-    <div componentclasses="test">
+    <div>
       <h3>Welcome traveller, your sojourn awaits. Only a thin barrier remains between you and a realm where your mind can soar, unbound from the fetters of the mundane world.</h3>
 
       <p>Let your spirit take shape in one of { numberOfRaces } races, cast your will into one of { numberOfGuilds } guilds and begin your journey towards destiny. Forge friendships, gain power, work with allies and vanquish foes.</p>
 
-      <p>Become part of the rich history of adventures who have made their home in a world that is both challenging and rewarding.</p>
+      <div className="columns">
 
-      <p>Step through the portal and immerse yourself in the mythical realm of Astaria...</p>
+        <div className="columns_column--fluid">
+          <p>Become part of the rich history of adventures who have made their home in a world that is both challenging and rewarding.</p>
+          <p>Step through the portal and immerse yourself in the mythical realm of Astaria...</p>
+        </div>
+        <div className="columns_column--fixed columns_column-gutter"></div>
+        <Link to="/client" className="columns_column--fixed cta">
+          <span className="cta-label">Give Astaria a try!</span>
+        </Link>
+
+        {/*
+          This old ass link (once you're logged into th TMC site) curently throws a malware warning in Chrome! No thanks. Leaving it here in case they ever fix it.
+
+          <a href="http://www.mudconnect.com/mud-bin/vote_rank.cgi?mud=Astaria" target="_blank" rel="noopener noreferrer">Vote for Astaria!</a>
+
+          This link should be added!
+
+          "Donate &amp; save lives!"
+        */}
+
+      </div>
     </div>
 
     {/*
@@ -41,28 +60,6 @@ const Home = () => (
       </div>
     </div>
     */}
-
-    <div>
-      <ul className="cta">
-        <li>
-          <Link to="/client">
-            <span className="cta-label cta-label--secondary">Step 1: Get the game (it's free)</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/client">
-            <span className="cta-label cta-label--primary">Explore!</span>
-          </Link>
-        </li>
-        {/*
-          This old ass link curently throws a malware warning in Chrome! No thanks. Leaving it here in case they ever fix it.
-
-        <li><a href="http://www.mudconnect.com/mud-bin/vote_rank.cgi?mud=Astaria" target="_blank" rel="noopener noreferrer">Vote for Astaria!</a></li>
-        <li>Donate &amp; save lives!</li>
-
-        */}
-      </ul>
-    </div>
 
   </div>
 );
