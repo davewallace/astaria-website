@@ -1,28 +1,21 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+/**
+ *
+ **/
+body {
   color: white;
-}
+  background: black; }
 
-.App-title {
-  font-size: 1.5em;
-}
+.view-root {
+  margin: 40px 80px;
+  padding: 20px 10px;
+  background-color: rgba(0, 0, 0, 0.24); }
 
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
+.view-home .cta-label {
+  position: relative;
+  background: transparent url("./images/icon_emblem-warriors--white-128x128.png") center center no-repeat; }
+  .view-home .cta-label--primary {
+    z-index: 2;
+    background: white; }
+  .view-home .cta-label--secondary {
+    z-index: 1;
+    background: grey; }

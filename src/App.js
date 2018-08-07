@@ -5,7 +5,11 @@ import React from "react";
 // commented out within the Router block below.
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
+// View imports
 import ViewHome from './views/Home'
+
+// Style
+import './App.css';
 
 const App = () => (
   <Router>
