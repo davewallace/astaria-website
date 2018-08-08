@@ -10,7 +10,7 @@
 /build
 
 # source intended to be compiled
-src/**/*.css
+/src/**/*.css
 
 # misc
 .DS_Store
@@ -25,3 +25,6 @@ yarn-error.log*
 
 # random backups i don't trust the internet
 /archive
+
+# components loaded from external repo
+/src/components/davewallace.io
