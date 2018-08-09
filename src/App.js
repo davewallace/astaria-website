@@ -1,3 +1,4 @@
+// yaay
 import React from "react";
 
 // Routing, as described here: https://reacttraining.com/react-router/web/
@@ -5,7 +6,7 @@ import React from "react";
 // commented out within the Router block below.
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
-// View imports
+// Imports for user views, or pages if you prefer
 import ViewHome from './views/Home'
 import ViewURLNotFound from './views/URLNotFound'
 import ViewClient from './views/Client'
