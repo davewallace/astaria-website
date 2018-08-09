@@ -14,6 +14,9 @@ import ViewGallery from './views/Gallery'
 import ViewMaps from './views/Maps'
 import ViewResources from './views/Resources'
 
+// For creating a main navigation, and potentially other types of navigation
+import UserNavigation from './components/davewallace.io/ui/components/UserNavigation'
+
 // Style
 import 'normalize.css';
 import './style/App.css';
@@ -35,23 +38,7 @@ const App = () => (
         <Route component={ViewURLNotFound} /> {/* 404 Route */}
       </Switch>
 
-      <ul className="view-navigation--main">
-        <li className="view-navigation--main-item">
-          <Link to="/">Home</Link>
-        </li>
-        <li className="view-navigation--main-item">
-          <Link to="/client">Client</Link>
-        </li>
-        <li className="view-navigation--main-item">
-          <Link to="/maps">Maps</Link>
-        </li>
-        <li className="view-navigation--main-item">
-          <Link to="/resources">Resources</Link>
-        </li>
-        <li className="view-navigation--main-item">
-          <Link to="/gallery">Gallery</Link>
-        </li>
-      </ul>
+      <UserNavigation test="hihi" />
 
     </div>
   </Router>
