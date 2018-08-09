@@ -4,7 +4,7 @@ import React from "react";
 // Routing, as described here: https://reacttraining.com/react-router/web/
 // Add 'Rediect' to this chain if it is needed at some point, there's an example
 // commented out within the Router block below.
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 // Imports for user views, or pages if you prefer
 import ViewHome from './views/Home'
