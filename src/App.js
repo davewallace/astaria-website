@@ -55,6 +55,12 @@ const navMain = [
   }
 ]
 
+function handle_click_unicorn (e) {
+
+  //e.preventDefault();
+  console.log('The link was clicked, a unicorn was activated.');
+}
+
 // Vroom vroom!
 const App = () => (
   <Router>
@@ -92,7 +98,8 @@ const App = () => (
           navMain.map(function (item) {
             return {
               "to": item.path,
-              "name": item.name
+              "name": item.name,
+              "onClick": handle_click_unicorn
             }
           })
         }
