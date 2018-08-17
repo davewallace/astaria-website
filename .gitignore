@@ -27,4 +27,4 @@ yarn-error.log*
 /archive
 
 # components loaded from external repo
-/src/components/davewallace.io
+/src/components/ui/davewallace.io
