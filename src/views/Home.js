@@ -17,7 +17,7 @@ const Home = () => (
       <div className="columns">
 
         <div className="columns_column--fluid">
-          <p>Become part of the rich history of adventures who have made their home in a world that is both challenging and rewarding.</p>
+          <p>Become part of the rich history of adventurers who have made their home in a world that is both challenging and rewarding.</p>
           <p>Step through the portal and immerse yourself in the mythical realm of Astaria...</p>
         </div>
         <div className="columns_column--fixed columns_column-gutter"></div>
