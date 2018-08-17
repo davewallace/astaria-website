@@ -87,7 +87,7 @@ const App = () => (
       </Switch>
 
       <UserNavigation
-        classNameBlock="-main"
+        classNameSuffix="-main"
         list={
           navMain.map(function (item) {
             return {
