@@ -7,6 +7,7 @@
  * Container of allll the app things
  **/
 .app-container {
+  padding: 10vw;
 }
 
   /**
@@ -24,20 +25,38 @@
 
     position: relative; // child elements may be absolutely positioned & animated
     z-index: 1; // base level navigation index, should always be accessible
+    width: 40vw;
     height: 33vh;
 
     border: 1px dashed orange;
 
-    &_link {
-      @include unlist();
+    &_item {
 
-      height: 64px;
-      border: 1px solid red;
+      position: absolute;
+      width: 10vh;
+      height: 10vh; // should be in ratio with width once SVG
 
-      &:nth-child(1n) {
+      &:nth-child(1) {
+        top: 0vh;
         border: 1px dashed cyan;
       }
+      &:nth-child(2) {
+        top: 4vh;
+        left: 16vw;
+        border: 1px dashed green;
+      }
+      &:nth-child(3) {
+        top: 12vh;
+        left: 30vw;
+        border: 1px dashed turquoise;
+      }
     }
+
+      &_link {
+        @include unlist();
+
+        height: 64px;
+      }
   }
 
   /**

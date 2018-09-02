@@ -1,5 +1,5 @@
 .unicorn {
-	width: 50vw;
+	width: 40vw;
 	height: 50vh; // should be ratio scaled once SVG
 }
 
@@ -19,6 +19,7 @@
 @media (min-width: 769px) {
 	.unicorn {
 		float: right;
+		margin-top: -100px;
 
 		border: 1px dashed cyan;
 	}
