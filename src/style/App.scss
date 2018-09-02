@@ -10,9 +10,9 @@
 }
 
   /**
-   * Main navigation
+   * Custom styles for <UserNavigation />
    **/
-  .view-navigation--main {
+  .navigation-main {
     @include unlist();
 
     display: flex;
@@ -20,7 +20,7 @@
 
     border: 1px dashed orange;
   }
-    .view-navigation--main-item {
+    .navigation-main-item {
       @include unlist();
 
       height: 64px;
