@@ -7,11 +7,9 @@ import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 // Imports for user views, or pages if you prefer
-import ViewHome from './views/Home'
+import ViewAbout from './views/About'
 import ViewURLNotFound from './views/URLNotFound'
-import ViewClient from './views/Client'
-import ViewGallery from './views/Gallery'
-import ViewMaps from './views/Maps'
+import ViewPlay from './views/Play'
 import ViewResources from './views/Resources'
 
 // For creating a main navigation, and potentially other types of navigation
@@ -24,34 +22,22 @@ import './style/App.css';
 // Main navigation definition, supplied to abstracted components
 const navMain = [
   {
-    "name": "Home",
+    "name": "About",
     "path": "/",
     "exact": true,
-    "component": ViewHome
+    "component": ViewAbout
   },
   {
     "name": "Play",
-    "path": "/client",
+    "path": "/play",
     "exact": true,
-    "component": ViewClient
-  },
-  {
-    "name": "Maps",
-    "path": "/maps",
-    "exact": true,
-    "component": ViewMaps
+    "component": ViewPlay
   },
   {
     "name": "Resources",
     "path": "/resources",
     "exact": true,
     "component": ViewResources
-  },
-  {
-    "name": "Gallery",
-    "path": "/gallery",
-    "exact": true,
-    "component": ViewGallery
   }
 ]
 
@@ -72,11 +58,9 @@ const App = () => (
 
         <Redirect from="/resources" to="/maps" />
 
-        <Route exact path="/" component={ViewHome} />
-        <Route path="/client" component={ViewClient} />
-        <Route path="/maps" component={ViewMaps} />
+        <Route exact path="/" component={ViewAbout} />
+        <Route path="/client" component={ViewPlay} />
         <Route path="/resources" component={ViewResources} />
-        <Route path="/gallery" component={ViewGallery} />
 
       */}
       <Switch>

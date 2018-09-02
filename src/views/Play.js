@@ -1,6 +1,6 @@
 import React from "react";
 
-const Home = () => (
+const Play = () => (
 
   <div className="view-root view-client">
     <h2>Once more unto the breach, dear friends...</h2>
@@ -8,4 +8,4 @@ const Home = () => (
   </div>
 );
 
-export default Home;
+export default Play;

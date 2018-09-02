@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const numberOfRaces = 'fifteen'
 const numberOfGuilds = 'nine'
 
-const Home = () => (
+const About = () => (
 
   <div className="view-root view-home">
     <h2>Once more unto the breach, dear friends...</h2>
@@ -64,4 +64,4 @@ const Home = () => (
   </div>
 );
 
-export default Home;
+export default About;
