@@ -54,7 +54,7 @@ function handle_click_unicorn (e) {
 const App = () => (
   <Router>
 
-    <div className="view-container">
+    <div className="app-container">
 
       <Unicorn />
 
