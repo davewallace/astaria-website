@@ -18,7 +18,7 @@ class Unicorn extends React.Component {
 		// output markup for navigation
 		return (
 
-			<div>Unicorn</div>
+			<div className="unicorn">Unicorn</div>
 		)
 	}
 }

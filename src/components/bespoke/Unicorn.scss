@@ -1,14 +1,29 @@
 // Imported once into root App.js
-@import '../../../../../style/_variable';
-@import '../../../../../style/_mixins';
+@import '../../style/_variable';
+@import '../../style/_mixins';
 
-.navigation {
-	@include unlist()
+.unicorn {
+	width: 50vw;
+	height: 50vh; // should be ratio scaled once SVG
+}
 
-	&_item {
-		@include unlist()
+// viewports the same or narrower than old school 768px width resolution should
+// render staked content
+@media (max-width: 768px) {
+	.unicorn {
+		float: none;
+
+		// center this badboy, with some relative space top/bottom
+		margin: 5vh auto;
+
+		border: 1px dashed gold;
 	}
-		&_link {
-			color: green;
-		}
+}
+
+@media (min-width: 769px) {
+	.unicorn {
+		float: right;
+
+		border: 1px dashed cyan;
+	}
 }
