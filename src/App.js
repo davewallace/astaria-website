@@ -12,6 +12,9 @@ import ViewURLNotFound from './views/URLNotFound'
 import ViewPlay from './views/Play'
 import ViewResources from './views/Resources'
 
+// bespoke logic
+import Unicorn from './components/bespoke/Unicorn'
+
 // For creating a main navigation, and potentially other types of navigation
 import UserNavigation from './components/ui/davewallace.io/ui/components/UserNavigation'
 
@@ -50,8 +53,28 @@ function handle_click_unicorn (e) {
 // Vroom vroom!
 const App = () => (
   <Router>
+
     <div className="view-container">
 
+      <Unicorn />
+
+      {/* start main nav area */}
+      <UserNavigation
+        classNameSuffix="-main"
+        currentItem=""
+        list={
+          navMain.map(function (item) {
+            return {
+              "to": item.path,
+              "name": item.name,
+              "onClick": handle_click_unicorn
+            }
+          })
+        }
+      />
+      {/* end main nav area */}
+
+      {/* start content area */}
       {/* Using a Switch allows us to declare our expected routes, while also
           accommodating non-matched routes (a 404 essentially) and also drop in
           redirects as needed
@@ -75,21 +98,9 @@ const App = () => (
         {/* 404 Route */}
         <Route component={ViewURLNotFound} />
       </Switch>
-
-      <UserNavigation
-        classNameSuffix="-main"
-        list={
-          navMain.map(function (item) {
-            return {
-              "to": item.path,
-              "name": item.name,
-              "onClick": handle_click_unicorn
-            }
-          })
-        }
-      />
-
     </div>
+    {/* end content area */}
+
   </Router>
 )
 
