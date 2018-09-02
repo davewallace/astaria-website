@@ -60,7 +60,7 @@ const App = () => (
 
       {/* start main nav area */}
       <UserNavigation
-        classNameSuffix="-main"
+        customRootClassNameSuffix="main"
         currentItem=""
         list={
           navMain.map(function (item) {

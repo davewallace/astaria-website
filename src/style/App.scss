@@ -15,17 +15,23 @@
   .navigation-main {
     @include unlist();
 
-    display: flex;
-    justify-content: space-evenly;
+    position: relative; // child elements may be absolutely positioned & animated
+    z-index: 1; // base level navigation index, should always be accessible
+    height: 33vh;
 
     border: 1px dashed orange;
-  }
-    .navigation-main-item {
+
+    &_link {
       @include unlist();
 
       height: 64px;
       border: 1px solid red;
+
+      &:nth-child(1n) {
+        border: 1px dashed cyan;
+      }
     }
+  }
 
   /**
    * Default root styles
