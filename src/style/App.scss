@@ -1,85 +1,81 @@
 // Imported once into root App.js
 @import '_variable';
 @import '_mixins';
+@import '_reset';
 
-body {
-  color: $color_fill--primary-inverse;
-  background: $color_fill--primary;
-}
-
-a {
-  color: $color_fill--primary-inverse;
-}
-
+/**
+ * Container of allll the vieewwwws
+ **/
 .view-container {
 }
 
-/**
- * Main navigation
- **/
-.view-navigation--main {
-  @include unlist();
-
-  display: flex;
-  justify-content: space-evenly;
-
-  border: 1px dashed orange;
-}
-  .view-navigation--main-item {
+  /**
+   * Main navigation
+   **/
+  .view-navigation--main {
     @include unlist();
 
-    height: 64px;
-    border: 1px solid red;
-  }
-
-/**
- * Default root styles
- **/
-.view-root {
-  margin: 40px 80px;
-  padding: 20px 10px;
-  background-color: rgba(255, 255, 255, .2);
-}
-
-/**
- * Default Home view styles
- **/
-.view-home {
-
-  .columns {
     display: flex;
+    justify-content: space-evenly;
+
+    border: 1px dashed orange;
   }
-    .columns_column-gutter {
-      width: $gutter--standard-width;
-    }
-    .columns_column--fluid {
+    .view-navigation--main-item {
+      @include unlist();
+
+      height: 64px;
+      border: 1px solid red;
     }
 
-    .columns_column--fixed {
-      margin-left: auto; // "any positive free space is distributed to auto margins in that dimension"
-    }
-      .call-to-arms {
+  /**
+   * Default root styles
+   **/
+  .view-root {
+    border: 1px dashed red;
+    margin: 40px 80px;
+    padding: 20px 10px;
+    background-color: rgba(255, 255, 255, .2);
+  }
+
+    /**
+     * Default Home view styles
+     **/
+    .view-home {
+
+      .columns {
         display: flex;
-        min-width: 128px;
-        height: 158px;
-        background: transparent url('../images/icon_emblem-warriors--white-128x128.png') center top no-repeat;
-        background-size: contain;
-
-        &_label {
-          display: block;
-          margin-top: auto;
-        }
       }
-}
+        .columns_column-gutter {
+          width: $gutter--standard-width;
+        }
+        .columns_column--fluid {
+        }
 
-/**
- * Client-side connection View. In this view, a user may connect to Astaria.
- **/
-.view-client {
+        .columns_column--fixed {
+          margin-left: auto; // "any positive free space is distributed to auto margins in that dimension"
+        }
+          .call-to-arms {
+            display: flex;
+            min-width: 128px;
+            height: 158px;
+            background: transparent url('../images/icon_emblem-warriors--white-128x128.png') center top no-repeat;
+            background-size: contain;
 
-  .webclient-container {
-    min-height: 25vh;
-    width: 100%;
-    border: 2px dashed red;
-  }
-}
+            &_label {
+              display: block;
+              margin-top: auto;
+            }
+          }
+    }
+
+    /**
+     * Client-side connection View. In this view, a user may connect to Astaria.
+     **/
+    .view-client {
+
+      .webclient-container {
+        min-height: 25vh;
+        width: 100%;
+        border: 2px dashed red;
+      }
+    }
