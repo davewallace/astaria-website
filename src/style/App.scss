@@ -70,40 +70,21 @@
   }
 
     /**
-     * Default Home view styles
+     * '/about' view styles
      **/
-    .view-home {
-
-      .columns {
-        display: flex;
-      }
-        .columns_column-gutter {
-          width: $gutter--standard-width;
-        }
-        .columns_column--fluid {
-        }
-
-        .columns_column--fixed {
-          margin-left: auto; // "any positive free space is distributed to auto margins in that dimension"
-        }
-          .call-to-arms {
-            display: flex;
-            min-width: 128px;
-            height: 158px;
-            background: transparent url('../images/icon_emblem-warriors--white-128x128.png') center top no-repeat;
-            background-size: contain;
-
-            &_label {
-              display: block;
-              margin-top: auto;
-            }
-          }
+    .view-about {
     }
 
     /**
-     * Client-side connection View. In this view, a user may connect to Astaria.
+     * '/about' view styles
      **/
-    .view-client {
+    .view-resources {
+    }
+
+    /**
+     * '/play' Client-side connection view. In this view, a user may connect to Astaria.
+     **/
+    .view-play {
 
       .webclient-container {
         min-height: 25vh;

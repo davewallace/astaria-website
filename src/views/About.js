@@ -7,8 +7,7 @@ const numberOfGuilds = 'nine'
 
 const About = () => (
 
-  <div className="view-root view-home">
-    <Title>Once more unto the breach, dear friends...</Title>
+  <div className="view-root view-about">
 
 
     <div>
