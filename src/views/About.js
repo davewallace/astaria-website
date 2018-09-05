@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Title from './components/ui/davewallace.io/ui/components/Title'
 
 const numberOfRaces = 'fifteen'
 const numberOfGuilds = 'nine'
@@ -7,7 +8,8 @@ const numberOfGuilds = 'nine'
 const About = () => (
 
   <div className="view-root view-home">
-    <h2>Once more unto the breach, dear friends...</h2>
+    <Title>Once more unto the breach, dear friends...</Title>
+
 
     <div>
       <h3>Welcome traveller, your sojourn awaits. Only a thin barrier remains between you and a realm where your mind can soar, unbound from the fetters of the mundane world.</h3>
