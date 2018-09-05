@@ -17,8 +17,6 @@ import Unicorn from './components/bespoke/Unicorn'
 
 // For creating a main navigation, and potentially other types of navigation
 import UserNavigation from './components/ui/davewallace.io/ui/components/UserNavigation'
-
-// UI components
 import Title from './components/ui/davewallace.io/ui/components/Title'
 
 // Style
