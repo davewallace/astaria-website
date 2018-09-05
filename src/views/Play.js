@@ -1,9 +1,10 @@
 import React from "react";
+import Title from '../components/ui/davewallace.io/ui/components/Title'
 
 const Play = () => (
 
-  <div className="view-root view-client">
-    <h2>Once more unto the breach, dear friends...</h2>
+  <div className="view-root view-play">
+    <Title level={2}>Play</Title>
     <iframe className="webclient-container" title="Astaria web client connection window." src="http://astaria.net/wm_client/webclient.php" />
   </div>
 );
