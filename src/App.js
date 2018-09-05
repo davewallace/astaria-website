@@ -59,11 +59,7 @@ const App = () => (
 
     <div className="app-container">
 
-      <Title
-        customRootClassNameSuffix="main"
-        level={1}
-        text="Astaria"
-        src="" />
+      <Title customRootClassNameSuffix="main" level={1}>Astaria</Title>
 
       <Unicorn />
 
