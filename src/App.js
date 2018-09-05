@@ -15,7 +15,7 @@ import ViewResources from './views/Resources'
 // bespoke logic
 import Unicorn from './components/bespoke/Unicorn'
 
-// For creating a main navigation, and potentially other types of navigation
+// UI components
 import UserNavigation from './components/ui/davewallace.io/ui/components/UserNavigation'
 import Title from './components/ui/davewallace.io/ui/components/Title'
 
