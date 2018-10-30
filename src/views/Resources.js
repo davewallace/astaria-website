@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Route, Link } from "react-router-dom";
-import Title from '../components/ui/davewallace.io/ui/components/Title'
+import Title from '../components/ui/Title'
 
 /**
  *

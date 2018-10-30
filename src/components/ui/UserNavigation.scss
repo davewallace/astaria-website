@@ -1,0 +1,12 @@
+@import '../../style/_mixins';
+
+.navigation {
+	@include unlist()
+
+	&_item {
+		@include unlist()
+	}
+		&_link {
+			color: green;
+		}
+}

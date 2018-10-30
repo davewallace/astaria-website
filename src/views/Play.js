@@ -1,5 +1,5 @@
 import React from "react";
-import Title from '../components/ui/davewallace.io/ui/components/Title'
+import Title from '../components/ui/Title'
 
 const Play = () => (
 

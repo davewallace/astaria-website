@@ -16,8 +16,8 @@ import ViewResources from './views/Resources'
 import Unicorn from './components/bespoke/Unicorn'
 
 // UI components
-import UserNavigation from './components/ui/davewallace.io/ui/components/UserNavigation'
-import Title from './components/ui/davewallace.io/ui/components/Title'
+import UserNavigation from './components/ui/UserNavigation'
+import Title from './components/ui/Title'
 
 // Style
 import 'normalize.css';
