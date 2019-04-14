@@ -97,6 +97,7 @@ const App = () => (
         <Route path="/resources" component={ViewResources} />
 
       */}
+      {/* TODO: comment on what a Switch achieves */}
       <Switch>
         {
           navMain.map(function (item, i) {
