@@ -151,6 +151,7 @@ p {
 .header__img {
   width: 100%;
   max-width: 100%;
+  filter: brightness(2);
 }
 
 /**
