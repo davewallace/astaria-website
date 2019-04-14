@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="grid">
+  <div id="app" class="grid" :class="'theme--' + theme">
 
     <div class="header">
       <div class="header__strapline">
@@ -38,7 +38,21 @@ export default {
     Unicorn
   },
   created () {
-    console.log('hihi')
+
+    // check if there's a previously stored theme value, then use it or set a
+    // default if no theme is stored
+    let theme = localStorage.getItem('astariamud.com?theme')
+    if (!theme) {
+      theme = 'dark'
+      localStorage.setItem('astariamud.com?theme', theme)
+    }
+    this.theme = theme
+
+  },
+  data: function () {
+    return {
+      theme: this.theme
+    }
   }
 }
 </script>
