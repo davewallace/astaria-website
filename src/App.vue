@@ -21,7 +21,7 @@
       <Unicorn msg="this is a unicorn"/>
     </div>
 
-    <div class="footer">(c) 2019</div>
+    <div class="footer">&copy; ASTARIA. ALL RIGHTS RESERVED.</div>
 
   </div>
 </template>
