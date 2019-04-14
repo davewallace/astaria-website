@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter as Route, Link } from "react-router-dom";
-import Title from '../components/ui/Title'
 
 /**
  *
@@ -8,7 +7,7 @@ import Title from '../components/ui/Title'
 const Resources = ({ match }) => (
 
   <div className="view-resources">
-    <Title level={2}>Resources</Title>
+    <h2>Resources</h2>
     <ul>
       <li>
         <Link to={`${match.url}/resource`}>Resources Sub-menu item 1</Link>

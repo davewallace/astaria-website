@@ -18,7 +18,6 @@ import WorldMap from './components/bespoke/WorldMap'
 
 // UI components
 import UserNavigation from './components/ui/UserNavigation'
-import Title from './components/ui/Title'
 
 import logo from './images/logo-black-astaria.png'
 
@@ -60,9 +59,9 @@ const App = () => (
 
     <div className="app-container">
 
-      <Title customRootClassNameSuffix="main" level={1}>
+      <h1 class="title-main">
         <img src={logo} alt="Astaria" />
-      </Title>
+      </h1>
 
       <Unicorn />
 
