@@ -14,6 +14,7 @@ import ViewResources from './views/Resources'
 
 // bespoke logic
 import Unicorn from './components/bespoke/Unicorn'
+import WorldMap from './components/bespoke/WorldMap'
 
 // UI components
 import UserNavigation from './components/ui/UserNavigation'
@@ -75,6 +76,9 @@ const App = () => (
           })
         }
       />
+
+      <WorldMap />
+
       {/* end main nav area */}
 
       {/* start content area */}
