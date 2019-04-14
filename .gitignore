@@ -3,9 +3,6 @@
 # dependencies
 /node_modules
 
-# testing
-/coverage
-
 # production
 /build
 
@@ -25,6 +22,3 @@ yarn-error.log*
 
 # random backups i don't trust the internet
 /archive
-
-# components loaded from external repo
-/src/components/ui/davewallace.io
