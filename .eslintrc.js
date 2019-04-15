@@ -17,7 +17,7 @@ module.exports = {
   ],
   // required to lint *.vue files
   plugins: [
-//    'vue'
+    'vue'
   ],
   // add your custom rules here
   rules: {
@@ -28,6 +28,7 @@ module.exports = {
     'spaced-comment': 'off',
     'camelcase': 'off',
     'padded-blocks': 'off',
-    'no-console': 'off'
+    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
   }
 }
