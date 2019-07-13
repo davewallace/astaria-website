@@ -1,6 +1,17 @@
 <template>
   <div class="component">
     <a href="#" class="button-close" @click.prevent="handleClose">x</a>
+
+    <div>the content will go in here</div>
+
+    <div v-if="connected">
+      connected
+    </div>
+    <div v-else>
+      disconnected
+    </div>
+
+    <!--
     <iframe importance="high"
             referrerpolicy="same-origin"
             height="100%"
@@ -8,17 +19,28 @@
             frameborder="0"
             marginheight="0"
             marginwidth="0"
-            src="" />
+            src="http://localhost:3000/" />
+    -->
   </div>
 </template>
 
 <script>
+import PlayerAPI from '@/api/Player.js'
+
 export default {
   name: 'Player',
+  data: function () {
+    return {
+      connected: false
+    }
+  },
   methods: {
-    handleClose(event) {
+    handleClose() {
       this.$emit('playerClose')
     }
+  },
+  created () {
+    PlayerAPI.connect()
   }
 }
 </script>
