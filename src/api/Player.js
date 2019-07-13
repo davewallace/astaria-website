@@ -8,7 +8,7 @@ let connected = false;
 let publicAPI = {
 
 	/**
-	 *
+	 * Attempts connection to PHUD server via a WebSocket
 	 **/
 	connect: function () {
 		console.log('connecting')
@@ -16,7 +16,7 @@ let publicAPI = {
 	},
 
 	/**
-	 *
+	 * Attempts disconnection from PHUD server and terminates WebSocket
 	 **/
 	disconnect: function () {
 		console.log('disconnecting')
@@ -25,14 +25,14 @@ let publicAPI = {
 	},
 
 	/**
-	 *
+	 * Returns Boolean connection status of WebSocket
 	 **/
 	isConnected: function () {
 		return connected
 	},
 
 	/**
-	 *
+	 * Attempt to send a message to the PHUD server
 	 **/
 	send: function (data) {
 
