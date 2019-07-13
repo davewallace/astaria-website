@@ -1,7 +1,14 @@
 <template>
   <div class="component">
     <a href="#" class="button-close" @click.prevent="handleClose">x</a>
-    [player here]
+    <iframe importance="high"
+            referrerpolicy="same-origin"
+            height="100%"
+            width="100%"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            src="" />
   </div>
 </template>
 
