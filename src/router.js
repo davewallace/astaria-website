@@ -20,12 +20,12 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     },
     {
-      path: '/resources',
-      name: 'resources',
+      path: '/maps',
+      name: 'maps',
       // route level code-splitting
-      // this generates a separate chunk (resources.[hash].js) for this route
+      // this generates a separate chunk (maps.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "resources" */ './views/Resources.vue')
+      component: () => import(/* webpackChunkName: "maps" */ './views/Maps.vue')
     },
     {
       path: '/play',

@@ -7,7 +7,7 @@
       <router-link to="/play" class="nav__link">Play</router-link>
     </li>
     <li class="nav__item">
-      <router-link to="/resources" class="nav__link">Resources</router-link>
+      <router-link to="/maps" class="nav__link">Maps</router-link>
     </li>
   </ul>
 </template>
@@ -50,6 +50,7 @@ export default {
  * router-link plugin.
  **/
 .router-link-exact-active {
+  font-weight: bold;
   color: #BD4040;
 }
 </style>
