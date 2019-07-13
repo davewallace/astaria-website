@@ -40,6 +40,16 @@ export default {
     }
   },
   created () {
+
+    // we want to do an async check to see if a connection succeeds. if it does,
+    // do all sorts of interesting things including;
+    //  - connect our Player's <ScrollPanel /> component to the data API to
+    //    receive data.
+    //  - send data from a form input component, or other UI components to issue
+    //    vommands back through the API.
+    //  - maintain awareness of the connection status and respond accordingly
+
+    //PlayerAPI.subscribe()
     PlayerAPI.connect()
   }
 }

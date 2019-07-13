@@ -4,6 +4,7 @@ const wshost = 'ws://astariamud.com:12346/wm_server/server.php';
 
 let websocketConnection = null;
 let connected = false;
+//let subscribers = [];
 
 let publicAPI = {
 
@@ -42,10 +43,24 @@ let publicAPI = {
 		websocketConnection.send(data);
 
 		return true;
+	},
+
+	/**
+	 * Subscribes a listener Object to events emitted from this module
+	 *
+	subscribe: function (subscriber) {
+		subscribers.push(subscriber)
 	}
+	*/
 }
 
 let privateAPI = {
+
+/*	publish: function () {
+		subscribers.forEach(function (subscriber) {
+			subscriber.
+		});
+	},*/
 
 	/**
 	 *
@@ -53,6 +68,7 @@ let privateAPI = {
 	connected: function () {
 		console.log('CONNECTED');
 		connected = true;
+		privateAPI.publish('connected');
 	},
 
 	/**
