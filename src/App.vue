@@ -61,6 +61,9 @@ export default {
 /**
  * Default page and main container
  **/
+html * {
+  box-sizing: border-box;
+}
 body {
   margin: 0;
   padding: 2rem 0 0 0;

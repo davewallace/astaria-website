@@ -6,9 +6,13 @@
       <span>You can log in or create a new character in Astaria by selecting the icon on the right&hellip;</span>
       <span>
         <a href="#"
-           @click="openPlayer()">[icon]</a>
+           v-on:click="playerOpen = !playerOpen">[icon]</a>
       </span>
-      <Player :open="playerOpen" />
+
+      <Player
+        v-if="playerOpen"
+        v-on:playerClose="playerOpen = !playerOpen" />
+
     </p>
 
     <p>Or, you can download Astaria's official game program for an enhanced experience:</p>
@@ -23,23 +27,16 @@
 
 <script>
 // @ is an alias to /src
-import Nav from '@/components/Player.vue'
+import Player from '@/components/Player.vue'
 
 export default {
   name: 'home',
   components: {
     Player
   },
-  created () {
-  },
   data: function () {
     return {
       playerOpen: false
-    }
-  },
-  methods: {
-    openPlayer: function () {
-      this.playerOpen = !this.openPlayer;
     }
   }
 }
