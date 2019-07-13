@@ -68,7 +68,7 @@ let privateAPI = {
 	connected: function () {
 		console.log('CONNECTED');
 		connected = true;
-		privateAPI.publish('connected');
+		//privateAPI.publish('connected');
 	},
 
 	/**
