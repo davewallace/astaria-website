@@ -4,7 +4,7 @@ const wshost = 'ws://astariamud.com:12346/wm_server/server.php';
 
 let websocketConnection = null;
 let connected = false;
-//let subscribers = [];
+let subscribers = [];
 
 let publicAPI = {
 
@@ -12,7 +12,7 @@ let publicAPI = {
 	 * Attempts connection to PHUD server via a WebSocket
 	 **/
 	connect: function () {
-		console.log('connecting')
+		//console.log('connecting...')
 		privateAPI.websocketConnect(privateAPI.websocketOpened)
 	},
 
@@ -20,7 +20,7 @@ let publicAPI = {
 	 * Attempts disconnection from PHUD server and terminates WebSocket
 	 **/
 	disconnect: function () {
-		console.log('disconnecting')
+		//console.log('disconnecting...')
 		// clean up websocket
 		privateAPI.disconnected()
 	},
@@ -47,36 +47,38 @@ let publicAPI = {
 
 	/**
 	 * Subscribes a listener Object to events emitted from this module
-	 *
+	 **/
 	subscribe: function (subscriber) {
 		subscribers.push(subscriber)
 	}
-	*/
 }
 
 let privateAPI = {
 
-/*	publish: function () {
+	publish: function (eventType, payload) {
 		subscribers.forEach(function (subscriber) {
-			subscriber.
+			// an $emit function or equivalent
+			subscriber({
+				type: eventType,
+				data: payload
+			})
 		});
-	},*/
+	},
 
 	/**
 	 *
 	 **/
 	connected: function () {
-		console.log('CONNECTED');
 		connected = true;
-		//privateAPI.publish('connected');
+		privateAPI.publish('connected', {connectedStatus: publicAPI.isConnected});
 	},
 
 	/**
 	 *
 	 **/
 	disconnected: function () {
-		console.log('DISCONNECTED');
 		connected = false;
+		privateAPI.publish('disconnected', {connectedStatus: publicAPI.isConnected});
 	},
 
 	/**
@@ -95,7 +97,7 @@ let privateAPI = {
 		}
 
 		websocketConnection.onerror = function () {
-			console.error('WEBSOCKET ERROR');
+			privateAPI.publish('error', {connected: publicAPI.isConnected});
 		}
 
 		websocketConnection.onclose = function () {
@@ -125,6 +127,8 @@ let privateAPI = {
 
 		// Output a standard message
 		if (data.message) {
+			privateAPI.publish('messageReceived', {message: data.message});
+
 			//ow_Write(data.message);
 		}
 
@@ -165,9 +169,12 @@ let privateAPI = {
 	},
 
 	/**
-	 *
+	 * Handles all messages received from PHUD web server
 	 **/
 	handle_ATCP: function (data) {
+
+		//console.log('ATCP: ')
+		//console.log(data)
 
 	/*
 		if (data.ATCP_Char_Name) {
