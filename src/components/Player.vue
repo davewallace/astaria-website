@@ -9,13 +9,35 @@
         scrollToBottom="true"
       />
 
+      <!--
+        I can't believe I'm doing this, but because the Chromium team refuse to
+        allow disabling of autocomplete with the browser password manager on
+        password fields, our usable and safe approach to switch between text and
+        password types on this main message box cannot be used. Using a password
+        field causes more issues that it solves.
+
+        The original Astaria gmud clients don't protect password entry anyway,
+        so I'm turning it off for this app too. Disappointing, sorry users.
+
+        Lots of development attempts and backlash to fix the problem:
+        https://gist.github.com/niksumeiko/360164708c3b326bd1c8
+
+        Chromium threads:
+        https://bugs.chromium.org/p/chromium/issues/detail?id=468153#c164
+        https://bugs.chromium.org/p/chromium/issues/detail?id=587466
+      -->
       <InputText
         class="scroll-input"
         ref="messageInput"
         clearOnSubmit=true
+        autocomplete="do-not-disturb"
         @handleEnter="handleDataSend"
+      />
+      <!--
         :inputType="messageBoxInputType"
       />
+      -->
+
     </div>
 
     <div class="status--connected" v-if="connected">Connected</div>
@@ -39,7 +61,7 @@ export default {
     return {
       connected: false,
       scrollData: '',
-      messageBoxInputType: 'text'
+      //messageBoxInputType: 'text',
     }
   },
   methods: {
@@ -70,7 +92,10 @@ export default {
           // ugh, it's also super inefficient - thi is run for every single
           // received message... this should be moved into a user config option
           // to improve perf versus offer slight security protection
-          this.checkForPasswordInput(event.data.message)
+
+          // COMMENTING OUT ON PURPOSE - Chrome autofill nonsense causing too
+          // many issues
+          //this.checkForPasswordInput(event.data.message)
 
           return;
 
@@ -90,7 +115,7 @@ export default {
 
     /**
      *
-     **/
+     *
     checkForPasswordInput (message) {
 
       // the extra space is another weak check, might as well put it in there to
@@ -104,8 +129,8 @@ export default {
           message.includes('Adventurer\'s Guild Hall for news and important updates!')) {
         this.messageBoxInputType = 'text';
       }
-
     }
+    */
   },
 
   created () {
@@ -185,7 +210,7 @@ export default {
   }
     .scroll-panel {
       flex-grow: 1;
-      border: 1px dashed pink;
+      border: 1px dashed green;
     }
     .scroll-input {
       border: 1px dashed turquoise;

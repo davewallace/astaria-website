@@ -2,7 +2,8 @@
   <input
 		class="input"
 		:type="inputType"
-		:autocomplete="autocompleteType"
+		:autocomplete="autocomplete"
+		:id="id"
     v-model="value"
     @keyup.enter="handleEnter"
 		ref="input"
@@ -12,9 +13,10 @@
 <script>
 export default {
 	props: [
+		'id',
     'clearOnSubmit',
     'inputType',
-    'autocompleteType'
+    'autocomplete'
   ],
   data: function () {
     return {
