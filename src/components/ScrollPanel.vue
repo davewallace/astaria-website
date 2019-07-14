@@ -1,27 +1,34 @@
 <template>
   <div
     class="scroll-panel"
-  />
+    v-html="data"></div>
 </template>
 
 <script>
 export default {
-	props: {
-    scrollToBottom: false
-  },
+	props: [
+    'data'
+  ],
 
   data: function () {
     return {
     }
   },
 
-  methods: {
+  watch: {
+    data: function(newVal, oldVal) {
+      console.log('Prop changed: ', newVal, ' | was: ', oldVal)
+      this.scrollUpdate()
+    }
   },
 
-  update () {
-        //var elem = this.$el
-    //elem.scrollTop = elem.clientHeight;
-    console.log('updated')
+  methods: {
+    scrollUpdate () {
+      let elem = this.$el
+      elem.scrollTop = elem.scrollHeight;
+
+      console.log('updated')
+    }
   }
 }
 </script>
@@ -29,8 +36,37 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .scroll-panel {
+    height: 100%;
+    max-height: 100%;
     overflow-y: auto;
     padding: 20px;
     font-family: monospace;
+  }
+</style>
+
+<style>
+  /**
+   * These classNames correspond to classNames supplied by the PHUD server
+   **/
+  .tnc_yellow {
+    color: yellow;
+  }
+  .tnc_white {
+    color: white;
+  }
+  .tnc_blue {
+    color: #415bec;
+  }
+  .tnc_cyan {
+    color: cyan;
+  }
+  .tnc_red {
+    color: red;
+  }
+  .tnc_green {
+    color: lime;
+  }
+  .tnc_orange {
+    color: orange;
   }
 </style>

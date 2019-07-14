@@ -2,42 +2,44 @@
   <div class="player">
     <a href="#" class="button--close" @click.prevent="handleClose">x</a>
 
-    <div class="scroll-container">
-      <ScrollPanel
-        class="scroll-panel"
-        v-html="scrollData"
-        scrollToBottom="true"
-      />
+    <div class="flex-stack">
+      <div class="flex-stack-grow">
+        <ScrollPanel
+          :data="scrollData"
+        />
+      </div>
+      <div class="flex-stack-auto">
 
-      <!--
-        I can't believe I'm doing this, but because the Chromium team refuse to
-        allow disabling of autocomplete with the browser password manager on
-        password fields, our usable and safe approach to switch between text and
-        password types on this main message box cannot be used. Using a password
-        field causes more issues that it solves.
+        <!--
+          I can't believe I'm doing this, but because the Chromium team refuse to
+          allow disabling of autocomplete with the browser password manager on
+          password fields, our usable and safe approach to switch between text and
+          password types on this main message box cannot be used. Using a password
+          field causes more issues that it solves.
 
-        The original Astaria gmud clients don't protect password entry anyway,
-        so I'm turning it off for this app too. Disappointing, sorry users.
+          The original Astaria gmud clients don't protect password entry anyway,
+          so I'm turning it off for this app too. Disappointing, sorry users.
 
-        Lots of development attempts and backlash to fix the problem:
-        https://gist.github.com/niksumeiko/360164708c3b326bd1c8
+          Lots of development attempts and backlash to fix the problem:
+          https://gist.github.com/niksumeiko/360164708c3b326bd1c8
 
-        Chromium threads:
-        https://bugs.chromium.org/p/chromium/issues/detail?id=468153#c164
-        https://bugs.chromium.org/p/chromium/issues/detail?id=587466
-      -->
-      <InputText
-        class="scroll-input"
-        ref="messageInput"
-        clearOnSubmit=true
-        autocomplete="do-not-disturb"
-        @handleEnter="handleDataSend"
-      />
-      <!--
-        :inputType="messageBoxInputType"
-      />
-      -->
+          Chromium threads:
+          https://bugs.chromium.org/p/chromium/issues/detail?id=468153#c164
+          https://bugs.chromium.org/p/chromium/issues/detail?id=587466
+        -->
+        <InputText
+          class="scroll-input"
+          ref="messageInput"
+          clearOnSubmit=true
+          autocomplete="do-not-disturb"
+          @handleEnter="handleDataSend"
+        />
+        <!--
+          :inputType="messageBoxInputType"
+        />
+        -->
 
+      </div>
     </div>
 
     <div class="status--connected" v-if="connected">Connected</div>
@@ -79,7 +81,7 @@ export default {
           return;
 
         case 'disconnected':
-          console.log('The Player has disconnected.')
+          //console.log('The Player has disconnected.')
           return;
 
         case 'messageReceived':
@@ -202,17 +204,23 @@ export default {
   .status--disconnected {
     background: red;
   }
-  .scroll-container {
+
+  .scroll-input {
+    width: 100%;
+  }
+
+  .flex-stack {
     display: flex;
     flex-direction: column;
     height: 100%;
     max-height: 100%;
   }
-    .scroll-panel {
+    .flex-stack-grow {
       flex-grow: 1;
       border: 1px dashed green;
+      max-height: calc(100% - 40px);
     }
-    .scroll-input {
+    .flex-stack-auto {
       border: 1px dashed turquoise;
     }
 </style>
