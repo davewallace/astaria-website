@@ -8,12 +8,13 @@
         v-html="scrollData"
         scrollToBottom="true"
       />
+
       <InputText
         class="scroll-input"
         ref="messageInput"
-        dynamicRef="messageInput"
+        clearOnSubmit=true
         @handleEnter="handleDataSend"
-        clearOnSubmit="true"
+        :inputType="messageBoxInputType"
       />
     </div>
 
@@ -37,7 +38,8 @@ export default {
   data: function () {
     return {
       connected: false,
-      scrollData: ''
+      scrollData: '',
+      messageBoxInputType: 'text'
     }
   },
   methods: {
@@ -47,6 +49,7 @@ export default {
     },
 
     handlePlayerEvent (event) {
+
       switch (event.type) {
 
         case 'connected':
@@ -54,12 +57,21 @@ export default {
           return;
 
         case 'disconnected':
-          //console.log('The Player has disconnected.')
+          console.log('The Player has disconnected.')
           return;
 
         case 'messageReceived':
-          //console.log('The Player has received a message:')
+
           this.scrollData += event.data.message
+
+          // check if we're in password input mode. see function definition for
+          // comment on this message checking's unreliability. better than nothing
+          // though?
+          // ugh, it's also super inefficient - thi is run for every single
+          // received message... this should be moved into a user config option
+          // to improve perf versus offer slight security protection
+          this.checkForPasswordInput(event.data.message)
+
           return;
 
         case 'error':
@@ -72,17 +84,27 @@ export default {
     },
 
     handleDataSend (data) {
-
-      console.log(data)
-
+//      console.log(data)
       PlayerAPI.send(data.value)
     },
 
     /**
-     * Focus on the main message input
+     *
      **/
-    focusMessageInput () {
-      this.$refs.messageInput.$el.focus();
+    checkForPasswordInput (message) {
+
+      // the extra space is another weak check, might as well put it in there to
+      // help narrow down possibility of not switching back to input type text..
+      if (message.includes('Speak thy word of passage: ')) {
+        this.messageBoxInputType = 'password';
+      }
+
+      if (message.includes('Reconnected.') ||
+          message.includes('You regain consciousness.') ||
+          message.includes('Adventurer\'s Guild Hall for news and important updates!')) {
+        this.messageBoxInputType = 'text';
+      }
+
     }
   },
 
@@ -101,7 +123,8 @@ export default {
   },
 
   mounted () {
-    this.focusMessageInput()
+    // focus the main message input
+    this.$refs.messageInput.$el.focus();
   },
 
   updated () {

@@ -1,35 +1,35 @@
 <template>
   <input
-  	type="text"
-  	class="input"
-  	ref="{{dynamicRef}}"
+		class="input"
+		:type="inputType"
+		:autocomplete="autocompleteType"
     v-model="value"
     @keyup.enter="handleEnter"
+		ref="input"
   />
 </template>
 
 <script>
 export default {
-	props: {
-    clearOnSubmit: false
-  },
+	props: [
+    'clearOnSubmit',
+    'inputType',
+    'autocompleteType'
+  ],
   data: function () {
     return {
       value: ''
     }
   },
   methods: {
-    focusInput() {
-      this.$refs[dynamicRef].focus()
-    },
     handleEnter() {
-    	this.$emit('handleEnter', {
-    		value: this.value
-    	})
+			this.$emit('handleEnter', {
+				value: this.value
+			})
 
-    	if (this.clearOnSubmit) {
-    		this.value = ''
-    	}
+			if (this.clearOnSubmit) {
+				this.value = ''
+			}
     }
   }
 }

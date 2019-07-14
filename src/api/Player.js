@@ -1,5 +1,6 @@
 const config_ip = '13.66.189.79';
-const config_port = 5000;
+//const config_port = 5000;
+const config_port = 11895;
 const wshost = 'ws://astariamud.com:12346/wm_server/server.php';
 
 let websocketConnection = null;
@@ -97,6 +98,7 @@ let privateAPI = {
 		}
 
 		websocketConnection.onerror = function () {
+			console.log('eeensbdfkjsbdfklsd')
 			privateAPI.publish('error', {connected: publicAPI.isConnected});
 		}
 
