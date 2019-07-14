@@ -111,7 +111,6 @@ export default {
     },
 
     handleDataSend (data) {
-//      console.log(data)
       PlayerAPI.send(data.value)
     },
 

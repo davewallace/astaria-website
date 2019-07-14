@@ -17,7 +17,6 @@ export default {
 
   watch: {
     data: function(newVal, oldVal) {
-      console.log('Prop changed: ', newVal, ' | was: ', oldVal)
       this.scrollUpdate()
     }
   },
@@ -25,9 +24,7 @@ export default {
   methods: {
     scrollUpdate () {
       let elem = this.$el
-      elem.scrollTop = elem.scrollHeight;
-
-      console.log('updated')
+      elem.scrollTop = elem.scrollHeight + 40; // 40px = padding top/bottom of .scroll-panel
     }
   }
 }

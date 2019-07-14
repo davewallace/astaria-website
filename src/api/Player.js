@@ -98,7 +98,6 @@ let privateAPI = {
 		}
 
 		websocketConnection.onerror = function () {
-			console.log('eeensbdfkjsbdfklsd')
 			privateAPI.publish('error', {connected: publicAPI.isConnected});
 		}
 
@@ -129,9 +128,12 @@ let privateAPI = {
 
 		// Output a standard message
 		if (data.message) {
-			privateAPI.publish('messageReceived', {message: data.message});
 
-			//ow_Write(data.message);
+			// extra span tags at the end because the PHUD server sends out unclosed
+      // tags as part of its last message...
+			let modifiedData = data.message+ '</span></span>'
+
+			privateAPI.publish('messageReceived', {message: modifiedData});
 		}
 
 		// // Write a WebMud server status message
@@ -192,16 +194,6 @@ let privateAPI = {
 		}
 	*/
 
-	/*
-		if (data.ATCP_Room_Exits) {
-		  m_nw.innerHTML = m_n.innerHTML = m_ne.innerHTML = m_e.innerHTML = m_se.innerHTML = m_s.innerHTML = m_sw.innerHTML
-		    = m_w.innerHTML = m_in.innerHTML = m_out.innerHTML = m_up.innerHTML = m_down.innerHTML = "";
-		  for (var i in data.ATCP_Room_Exits) {
-		    document.getElementById("m_" + data.ATCP_Room_Exits[i]).innerHTML = data.ATCP_Room_Exits[i].toUpperCase();
-		  }
-		}
-	*/
-
 		if (data.ATCP_Disconnect) {
 			if (data.ATCP_Disconnect === "true") {
 				//ow_Write("DISCONNECTED FROM MUD");
@@ -226,30 +218,5 @@ function ow_Write (text) {
 // if (prevent_autoscroll == true) return;
 
 // objDiv.scrollTop = objDiv.scrollHeight;
-}
-
-function trim_ow () {
-// var elem;
-
-// if (num_msgs >= msg_limit)
-// {
-//   elem = "#msg" + next_del;
-
-//   $(elem).remove();
-
-//   next_del++;
-// }
-}
-*/
-
-/*
-function formSubmit__send (data) {
-send(data);
-}
-
-function formSubmit__disconnect (evt) {
-evt.preventDefault();
-
-disconnect();
 }
 */
