@@ -4,8 +4,9 @@ const config_port = 11895;
 const wshost = 'ws://astariamud.com:12346/wm_server/server.php';
 
 let websocketConnection = null;
-let connected = false;
 let subscribers = [];
+let pingInterval = null;
+let pingIntervalDelay = 1000;
 
 let publicAPI = {
 
@@ -13,24 +14,30 @@ let publicAPI = {
 	 * Attempts connection to PHUD server via a WebSocket
 	 **/
 	connect: function () {
-		//console.log('connecting...')
-		privateAPI.websocketConnect(privateAPI.websocketOpened)
+		console.log('Connecting...')
+
+		let status = privateAPI.connectionStatus()
+
+		if (!status ||
+				!websocketConnection ||
+				status !== WebSocket.CLOSING ||
+				status !== WebSocket.CLOSED) {
+
+			privateAPI.websocketConnect()
+			console.log(`PHUD server is ${status}`)
+
+		} else {
+			console.log('Connecting...')
+		}
 	},
 
 	/**
 	 * Attempts disconnection from PHUD server and terminates WebSocket
 	 **/
 	disconnect: function () {
-		//console.log('disconnecting...')
+		console.log('Disconnecting...')
 		// clean up websocket
 		privateAPI.disconnected()
-	},
-
-	/**
-	 * Returns Boolean connection status of WebSocket
-	 **/
-	isConnected: function () {
-		return connected
 	},
 
 	/**
@@ -38,10 +45,10 @@ let publicAPI = {
 	 **/
 	send: function (data) {
 
-		console.log('user input is sending: ');
-		console.log(data);
+		console.log('user input is sending: ')
+		console.log(data)
 
-		websocketConnection.send(data);
+		websocketConnection.send(data)
 
 		return true;
 	},
@@ -56,6 +63,53 @@ let publicAPI = {
 
 let privateAPI = {
 
+	/**
+	 * Check to see if connected to server
+	 **/
+	createPing: function () {
+
+		// ensure only one ping at a time
+		privateAPI.clearPing()
+
+		//
+		pingInterval = window.setInterval(function () {
+
+			console.log('Auto-checking connection...')
+
+			let status = privateAPI.connectionStatus()
+
+			if (status === WebSocket.CLOSED ||
+					status === WebSocket.CLOSING) {
+				privateAPI.disconnected()
+			}
+
+			if (status === WebSocket.OPEN ||
+					status === WebSocket.CONNECTING) {
+				// do nothing, BAU
+			}
+
+		}, pingIntervalDelay);
+	},
+
+	/**
+	 * Clears a current ping if there is one
+	 **/
+	clearPing: function () {
+		if (pingInterval) {
+			window.clearInterval(pingInterval)
+		}
+	},
+
+	/**
+	 *
+	 **/
+	connectionStatus: function () {
+		return !websocketConnection || websocketConnection.readyState
+	},
+
+	/**
+	 *
+	 **/
 	publish: function (eventType, payload) {
 		subscribers.forEach(function (subscriber) {
 			// an $emit function or equivalent
@@ -70,39 +124,58 @@ let privateAPI = {
 	 *
 	 **/
 	connected: function () {
-		connected = true;
-		privateAPI.publish('connected', {connectedStatus: publicAPI.isConnected});
+		privateAPI.publish('connected', {connectedStatus: privateAPI.connectionStatus})
+
+		// check the WebSocket connectivity and the PHUD connection status
+		console.log('Starting connection auto-checker...')
+		privateAPI.createPing()
+	},
+
+	/**
+	 *
+	 **/
+	connecting: function () {
+		privateAPI.publish('connecting', {connectedStatus: privateAPI.connectionStatus})
 	},
 
 	/**
 	 *
 	 **/
 	disconnected: function () {
-		connected = false;
-		privateAPI.publish('disconnected', {connectedStatus: publicAPI.isConnected});
+		privateAPI.publish('disconnected', {connectedStatus: privateAPI.connectionStatus})
 	},
 
 	/**
 	 *
 	 **/
-	websocketConnect: function (websocketOpenedCallback) {
+	error: function () {
+		privateAPI.publish('error', {connectedStatus: privateAPI.connectionStatus})
+	},
+
+	/**
+	 *
+	 **/
+	websocketConnect: function () {
+
+		privateAPI.connecting()
 
 		websocketConnection = new WebSocket(wshost);
 
 		websocketConnection.onopen = function() {
-			websocketOpenedCallback();
+			privateAPI.websocketOpened()
 		}
 
 		websocketConnection.onmessage = function(evt) {
-			privateAPI.handleWebsocketRead(evt.data);
+			console.log('message received by PlayerAPI')
+			privateAPI.handleWebsocketRead(evt.data)
 		}
 
 		websocketConnection.onerror = function () {
-			privateAPI.publish('error', {connected: publicAPI.isConnected});
+			privateAPI.error()
 		}
 
 		websocketConnection.onclose = function () {
-			publicAPI.disconnect();
+			publicAPI.disconnected()
 		}
 	},
 
@@ -110,8 +183,7 @@ let privateAPI = {
 	 *
 	 **/
 	websocketOpened: function () {
-		privateAPI.connected()
-		privateAPI.sendDirect('PHUD:CONNECT ' + config_ip + ' ' + config_port);
+		privateAPI.sendDirect('PHUD:CONNECT ' + config_ip + ' ' + config_port)
 	},
 
 	/**
@@ -119,12 +191,12 @@ let privateAPI = {
 	 **/
 	handleWebsocketRead: function (s) {
 
-		console.log(s);
+		console.log(s)
 
 		let data = eval('(' + s + ')');
 
 		// Check for ATCP messages
-		privateAPI.handle_ATCP(data);
+		privateAPI.handle_ATCP(data)
 
 		// Output a standard message
 		if (data.message) {
@@ -133,7 +205,7 @@ let privateAPI = {
       // tags as part of its last message...
 			let modifiedData = data.message+ '</span></span>'
 
-			privateAPI.publish('messageReceived', {message: modifiedData});
+			privateAPI.publish('messageReceived', {message: modifiedData})
 		}
 
 		// // Write a WebMud server status message
@@ -147,15 +219,6 @@ let privateAPI = {
 				privateAPI.connected()
 			} else if (data.conn_status === 'disconnected') {
 				privateAPI.disconnected()
-			}
-		}
-
-		// Set the connection status for the PHudBase-WebMud server (sent by the Flash client) //
-		if (data.fconn_status) {
-			if (data.fconn_status === 'connected') {
-				privateAPI.connected();
-			} else if (data.fconn_status === 'disconnected') {
-				privateAPI.disconnected();
 			}
 		}
 	},
@@ -195,8 +258,7 @@ let privateAPI = {
 	*/
 
 		if (data.ATCP_Disconnect) {
-			if (data.ATCP_Disconnect === "true") {
-				//ow_Write("DISCONNECTED FROM MUD");
+			if (data.ATCP_Disconnect === 'true') {
 				privateAPI.disconnected()
 			}
 		}
@@ -204,19 +266,3 @@ let privateAPI = {
 }
 
 export default publicAPI;
-
-/*
-function ow_Write (text) {
-// var objDiv = window.top.document.getElementById("output");
-
-// objDiv.innerHTML += text;
-
-// trim_ow();
-
-// num_msgs++;
-
-// if (prevent_autoscroll == true) return;
-
-// objDiv.scrollTop = objDiv.scrollHeight;
-}
-*/

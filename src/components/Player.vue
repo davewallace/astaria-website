@@ -42,8 +42,9 @@
       </div>
     </div>
 
-    <div class="status--connected" v-if="connected">Connected</div>
-    <div class="status--disconnected" v-else>Disconnected</div>
+    <div class="status status--connected" v-if="connected === 2">Connected</div>
+    <div class="status status--connecting" v-else-if="connected === 1">Connecting</div>
+    <div class="status status--disconnected" v-else>Disconnected</div>
 
   </div>
 </template>
@@ -61,7 +62,7 @@ export default {
   },
   data: function () {
     return {
-      connected: false,
+      connected: 0,
       scrollData: '',
       //messageBoxInputType: 'text',
     }
@@ -76,16 +77,24 @@ export default {
 
       switch (event.type) {
 
+        case 'connecting':
+          console.log('The Player is connecting.')
+          this.connected = 1
+          return;
+
         case 'connected':
-          //console.log('The Player has connected.')
+          console.log('The Player has connected.')
+          this.connected = 2
           return;
 
         case 'disconnected':
-          //console.log('The Player has disconnected.')
+          console.log('The Player has disconnected.')
+          this.connected = 0
           return;
 
         case 'messageReceived':
 
+          console.log('message received')
           this.scrollData += event.data.message
 
           // check if we're in password input mode. see function definition for
@@ -136,26 +145,16 @@ export default {
 
   created () {
 
-    // we want to do an async check to see if a connection succeeds. if it does,
-    // do all sorts of interesting things including;
-    //  - connect our Player's <ScrollPanel /> component to the data API to
-    //    receive data.
-    //  - send data from a form input component, or other UI components to issue
-    //    vommands back through the API.
-    //  - maintain awareness of the connection status and respond accordingly
-
+    // Receives all events from PlayerAPI and handles each eventType
     PlayerAPI.subscribe(this.handlePlayerEvent)
+
+    // Initial connection to PlayerAPI (PHUD WebSocket server)
     PlayerAPI.connect()
   },
 
   mounted () {
     // focus the main message input
     this.$refs.messageInput.$el.focus();
-  },
-
-  updated () {
-    //var elem = this.$el
-    //elem.scrollTop = elem.clientHeight;
   }
 }
 </script>
@@ -188,14 +187,16 @@ export default {
     border: 1px dashed red;
   }
 
-  .status--connected,
-  .status--disconnected {
+  .status {
     position: absolute;
-    bottom: 0;
-    right: 0;
+    bottom: 100px;
+    right: 100px;
     display: block;
-    width: 16px;
-    height: 16px;
+    width: 32px;
+    height: 32px;
+  }
+  .status--connecting {
+    background: orange;
   }
   .status--connected {
     background: green;
