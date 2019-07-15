@@ -16,7 +16,7 @@ export default {
   },
 
   watch: {
-    data: function(newVal, oldVal) {
+    data: function () {
       this.scrollUpdate()
     }
   },
