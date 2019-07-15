@@ -10,11 +10,6 @@ export default {
     'data'
   ],
 
-  data: function () {
-    return {
-    }
-  },
-
   watch: {
     data: function () {
       this.scrollUpdate()
@@ -24,7 +19,9 @@ export default {
   methods: {
     scrollUpdate () {
       let elem = this.$el
-      elem.scrollTop = elem.scrollHeight + 40; // 40px = padding top/bottom of .scroll-panel
+      elem.scrollTop = elem.scrollHeight
+
+      console.log('UPDATING ScrollPanel...')
     }
   }
 }
@@ -45,25 +42,11 @@ export default {
   /**
    * These classNames correspond to classNames supplied by the PHUD server
    **/
-  .tnc_yellow {
-    color: yellow;
-  }
-  .tnc_white {
-    color: white;
-  }
-  .tnc_blue {
-    color: #415bec;
-  }
-  .tnc_cyan {
-    color: cyan;
-  }
-  .tnc_red {
-    color: red;
-  }
-  .tnc_green {
-    color: lime;
-  }
-  .tnc_orange {
-    color: orange;
-  }
+  .tnc_yellow { color: yellow; }
+  .tnc_white { color: white; }
+  .tnc_blue { color: #415bec; }
+  .tnc_cyan { color: cyan; }
+  .tnc_red { color: red; }
+  .tnc_green { color: lime; }
+  .tnc_orange { color: orange; }
 </style>

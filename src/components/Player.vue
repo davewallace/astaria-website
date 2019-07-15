@@ -1,50 +1,95 @@
 <template>
   <div class="player">
-    <a href="#" class="button--close" @click.prevent="handleClose">x</a>
 
     <div class="flex-stack">
-      <div class="flex-stack-grow">
+      <div class="flex-stack--auto">
+
+        <div class="flex-columns">
+          <div class="flex-columns--auto">
+          </div>
+          <div class="flex-columns--grow">
+
+            <!-- Close button -->
+            <a href="#" class="button--close" @click.prevent="handleClose">
+              &#10060; <!-- cross emoji -->
+              <span class="visually-hidden">Close Player</span>
+            </a>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="flex-stack--grow message-output">
+
+        <!-- Message output container -->
         <ScrollPanel
           :data="scrollData"
         />
       </div>
-      <div class="flex-stack-auto">
+      <div class="flex-stack--auto message-input">
 
-        <!--
-          I can't believe I'm doing this, but because the Chromium team refuse to
-          allow disabling of autocomplete with the browser password manager on
-          password fields, our usable and safe approach to switch between text and
-          password types on this main message box cannot be used. Using a password
-          field causes more issues that it solves.
+        <div class="flex-columns">
+          <div class="flex-columns--grow">
 
-          The original Astaria gmud clients don't protect password entry anyway,
-          so I'm turning it off for this app too. Disappointing, sorry users.
+            <!-- Message input container -->
+            <!--
+              I can't believe I'm doing this, but because the Chromium team refuse to
+              allow disabling of autocomplete with the browser password manager on
+              password fields, our usable and safe approach to switch between text and
+              password types on this main message box cannot be used. Using a password
+              field causes more issues that it solves.
 
-          Lots of development attempts and backlash to fix the problem:
-          https://gist.github.com/niksumeiko/360164708c3b326bd1c8
+              The original Astaria gmud clients don't protect password entry anyway,
+              so I'm turning it off for this app too. Disappointing, sorry users.
 
-          Chromium threads:
-          https://bugs.chromium.org/p/chromium/issues/detail?id=468153#c164
-          https://bugs.chromium.org/p/chromium/issues/detail?id=587466
-        -->
-        <InputText
-          class="scroll-input"
-          ref="messageInput"
-          clearOnSubmit=true
-          autocomplete="do-not-disturb"
-          @handleEnter="handleDataSend"
-        />
-        <!--
-          :inputType="messageBoxInputType"
-        />
-        -->
+              Lots of development attempts and backlash to fix the problem:
+              https://gist.github.com/niksumeiko/360164708c3b326bd1c8
+
+              Chromium threads:
+              https://bugs.chromium.org/p/chromium/issues/detail?id=468153#c164
+              https://bugs.chromium.org/p/chromium/issues/detail?id=587466
+            -->
+            <InputText
+              class="scroll-input"
+              ref="messageInput"
+              clearOnSubmit=true
+              autocomplete="do-not-disturb"
+              @handleEnter="handleDataSend"
+            />
+            <!--
+              :inputType="messageBoxInputType"
+            />
+            -->
+
+          </div>
+          <div class="flex-columns--auto connection-buttons">
+
+            <!-- Connection status indicator -->
+            <div class="status status--connected" v-if="connected === 2">
+              <span class="visually-hidden">Connected</span>
+            </div>
+            <div class="status status--connecting" v-else-if="connected === 1">
+              <span class="visually-hidden">Connecting</span>
+            </div>
+            <div class="status status--disconnected" v-else>
+              <span class="visually-hidden">Disconnected</span>
+            </div>
+
+            <!-- Connection toggle -->
+            <a href="#" class="button--disconnect" @click="disconnect()" v-if="connected === 2">
+              &#128268; <!-- plug emoji -->
+              <span class="visually-hidden">Disconnect</span>
+            </a>
+            <a href="#" class="button--connect" @click="connect()" v-else-if="connected === 0">
+              &#128268; <!-- plug emoji -->
+              <span class="visually-hidden">Reconnect</span>
+            </a>
+
+          </div>
+        </div>
 
       </div>
     </div>
-
-    <div class="status status--connected" v-if="connected === 2">Connected</div>
-    <div class="status status--connecting" v-else-if="connected === 1">Connecting</div>
-    <div class="status status--disconnected" v-else>Disconnected</div>
 
   </div>
 </template>
@@ -69,6 +114,14 @@ export default {
   },
   methods: {
 
+    connect () {
+      PlayerAPI.connect()
+    },
+
+    disconnect () {
+      PlayerAPI.disconnect()
+    },
+
     handleClose () {
       this.$emit('playerClose')
     },
@@ -78,23 +131,23 @@ export default {
       switch (event.type) {
 
         case 'connecting':
-          console.log('The Player is connecting.')
+          //console.log('The Player is connecting.')
           this.connected = 1
-          return;
+          return
 
         case 'connected':
-          console.log('The Player has connected.')
+          //console.log('The Player has connected.')
           this.connected = 2
-          return;
+          return
 
         case 'disconnected':
-          console.log('The Player has disconnected.')
+          //console.log('The Player has disconnected.')
           this.connected = 0
-          return;
+          return
 
         case 'messageReceived':
 
-          console.log('message received')
+          //console.log('message received')
           this.scrollData += event.data.message
 
           // check if we're in password input mode. see function definition for
@@ -108,14 +161,14 @@ export default {
           // many issues
           //this.checkForPasswordInput(event.data.message)
 
-          return;
+          return
 
         case 'error':
           //console.log('There was an error with the Player WebSocket connection.')
           return;
 
         default:
-          return;
+          return
       }
     },
 
@@ -149,12 +202,12 @@ export default {
     PlayerAPI.subscribe(this.handlePlayerEvent)
 
     // Initial connection to PlayerAPI (PHUD WebSocket server)
-    PlayerAPI.connect()
+    this.connect()
   },
 
   mounted () {
     // focus the main message input
-    this.$refs.messageInput.$el.focus();
+    this.$refs.messageInput.$el.focus()
   }
 }
 </script>
@@ -171,56 +224,120 @@ export default {
     left: 20px;
     width: calc(100vw - 40px);
     height: calc(100vh - 40px);
-
-    border: 1px dashed #444;
-    background: black;
     padding: 1rem;
+    background: black;
   }
 
-  .button--close {
-    position: absolute;
-    top: 0;
-    right: 0;
-    display: block;
-    width: 16px;
-    height: 16px;
-    border: 1px dashed red;
-  }
-
-  .status {
-    position: absolute;
-    bottom: 100px;
-    right: 100px;
-    display: block;
-    width: 32px;
-    height: 32px;
-  }
-  .status--connecting {
-    background: orange;
-  }
-  .status--connected {
-    background: green;
-  }
-  .status--disconnected {
-    background: red;
-  }
-
-  .scroll-input {
-    width: 100%;
-  }
-
+  /**
+   * Layouts
+   **/
   .flex-stack {
     display: flex;
     flex-direction: column;
     height: 100%;
     max-height: 100%;
   }
-    .flex-stack-grow {
+    .flex-stack--grow {
       flex-grow: 1;
-      border: 1px dashed green;
-      max-height: calc(100% - 40px);
     }
-    .flex-stack-auto {
-      border: 1px dashed turquoise;
+    .flex-stack--auto {
     }
+
+  .flex-columns {
+    display: flex;
+  }
+    .flex-columns--grow {
+      flex-grow: 1;
+    }
+    .flex-columns--auto {
+    }
+
+  /**
+   * Player close
+   **/
+  .button--close {
+    float: right;
+    width: 24px;
+    height: 20px;
+    margin-bottom: -1px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-size: 0.55em;
+    border: 1px solid #444;
+    border-bottom: black;
+    text-decoration: none;
+    text-align: center;
+    text-indent: 3px;
+    filter: brightness(80%);
+    background: black;
+  }
+
+  /**
+   * Connectivity status indicator
+   **/
+  .connection-buttons {
+    position: relative;
+    padding-left: 10px;
+  }
+    .status {
+      display: block;
+      width: 18px;
+      height: 18px;
+      margin-top: 10px;
+      border-radius: 9px;
+    }
+    .status--connecting {
+      background: orange;
+    }
+    .status--connected {
+      background: #57e457;
+    }
+    .status--disconnected {
+      background: red;
+    }
+    .button--connect,
+    .button--disconnect {
+      display: block;
+      width: 16px;
+      height: 16px;
+      text-decoration: none;
+    }
+    .button--connect,
+    .button--disconnect {
+      position: absolute;
+      left: 11px;
+      top: 8px;
+      width: 10px;
+      height: 10px;
+      font-size: 0.85em;
+    }
+
+  /**
+   * Message output box
+   **/
+  .message-output {
+    max-height: calc(100% - 110px);
+    border: 1px solid #444;
+  }
+
+  /**
+   * Message input box
+   **/
+  .message-input {
+    padding-top: 5px;
+  }
+    .scroll-input {
+      width: 100%;
+    }
+
+  /**
+   * Utilities
+   **/
+  .visually-hidden {
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+  }
 </style>

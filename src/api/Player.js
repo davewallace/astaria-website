@@ -2,6 +2,7 @@ const config_ip = '13.66.189.79';
 //const config_port = 5000;
 const config_port = 11895;
 const wshost = 'ws://astariamud.com:12346/wm_server/server.php';
+const WebSocketStatusMapping = ['CONNECTING', 'OPEN', 'CLOSING', 'CLOSED']; // more useful than integers for logging
 
 let websocketConnection = null;
 let subscribers = [];
@@ -18,16 +19,15 @@ let publicAPI = {
 
 		let status = privateAPI.connectionStatus()
 
-		if (!status ||
-				!websocketConnection ||
-				status !== WebSocket.CLOSING ||
-				status !== WebSocket.CLOSED) {
+		if (status === null ||
+				status == WebSocket.CLOSING ||
+				status == WebSocket.CLOSED) {
 
-			privateAPI.websocketConnect()
-			console.log(`PHUD server is ${status}`)
+			privateAPI.connect()
+			console.log(`PHUD server is ${WebSocketStatusMapping[status]}`)
 
 		} else {
-			console.log('Connecting...')
+			console.log(`PHUD server is already ${WebSocketStatusMapping[status]}`)
 		}
 	},
 
@@ -35,9 +35,20 @@ let publicAPI = {
 	 * Attempts disconnection from PHUD server and terminates WebSocket
 	 **/
 	disconnect: function () {
-		console.log('Disconnecting...')
-		// clean up websocket
-		privateAPI.disconnected()
+
+		let status = privateAPI.connectionStatus()
+
+		console.log(`Disconnecting... (status(${status}) is ${WebSocketStatusMapping[status]})`)
+
+		if (status == null ||
+				status == WebSocket.CLOSING ||
+				status == WebSocket.CLOSED) {
+
+			console.log(`PHUD server is already ${WebSocketStatusMapping[status]}`)
+
+		} else {
+			privateAPI.disconnecting()
+		}
 	},
 
 	/**
@@ -104,7 +115,10 @@ let privateAPI = {
 	 *
 	 **/
 	connectionStatus: function () {
-		return !websocketConnection || websocketConnection.readyState
+		if (!websocketConnection) {
+			return null
+		}
+		return websocketConnection.readyState
 	},
 
 	/**
@@ -123,39 +137,7 @@ let privateAPI = {
 	/**
 	 *
 	 **/
-	connected: function () {
-		privateAPI.publish('connected', {connectedStatus: privateAPI.connectionStatus})
-
-		// check the WebSocket connectivity and the PHUD connection status
-		console.log('Starting connection auto-checker...')
-		privateAPI.createPing()
-	},
-
-	/**
-	 *
-	 **/
-	connecting: function () {
-		privateAPI.publish('connecting', {connectedStatus: privateAPI.connectionStatus})
-	},
-
-	/**
-	 *
-	 **/
-	disconnected: function () {
-		privateAPI.publish('disconnected', {connectedStatus: privateAPI.connectionStatus})
-	},
-
-	/**
-	 *
-	 **/
-	error: function () {
-		privateAPI.publish('error', {connectedStatus: privateAPI.connectionStatus})
-	},
-
-	/**
-	 *
-	 **/
-	websocketConnect: function () {
+	connect: function () {
 
 		privateAPI.connecting()
 
@@ -175,8 +157,62 @@ let privateAPI = {
 		}
 
 		websocketConnection.onclose = function () {
-			publicAPI.disconnected()
+			privateAPI.disconnected()
 		}
+	},
+
+	/**
+	 *
+	 **/
+	connected: function () {
+		console.log('Connected.')
+
+		privateAPI.publish('connected', {connectedStatus: privateAPI.connectionStatus})
+
+		// check the WebSocket connectivity and the PHUD connection status
+		console.log('Starting connection auto-checker...')
+		privateAPI.createPing()
+	},
+
+	/**
+	 *
+	 **/
+	connecting: function () {
+		privateAPI.publish('connecting', {connectedStatus: privateAPI.connectionStatus})
+	},
+
+	/**
+	 *
+	 **/
+	disconnect: function () {
+		websocketConnection.close(1000, 'Connection terminated by Client Application.')
+
+		// clear the WebSocket connectivity status checker
+		privateAPI.clearPing()
+	},
+
+	/**
+	 *
+	 **/
+	disconnecting: function () {
+		privateAPI.publish('disconnecting', {connectedStatus: privateAPI.connectionStatus})
+		privateAPI.disconnect()
+	},
+
+	/**
+	 *
+	 **/
+	disconnected: function () {
+		console.log('Disconnected.')
+
+		privateAPI.publish('disconnected', {connectedStatus: privateAPI.connectionStatus})
+	},
+
+	/**
+	 *
+	 **/
+	error: function () {
+		privateAPI.publish('error', {connectedStatus: privateAPI.connectionStatus})
 	},
 
 	/**
@@ -191,7 +227,7 @@ let privateAPI = {
 	 **/
 	handleWebsocketRead: function (s) {
 
-		console.log(s)
+		//console.log(s)
 
 		//let data = eval('(' + s + ')');
 		let data = JSON.parse(s);
@@ -219,7 +255,7 @@ let privateAPI = {
 			if (data.conn_status === 'connected') {
 				privateAPI.connected()
 			} else if (data.conn_status === 'disconnected') {
-				privateAPI.disconnected()
+				privateAPI.disconnecting()
 			}
 		}
 	},
