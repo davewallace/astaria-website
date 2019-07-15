@@ -193,7 +193,8 @@ let privateAPI = {
 
 		console.log(s)
 
-		let data = eval('(' + s + ')');
+		//let data = eval('(' + s + ')');
+		let data = JSON.parse(s);
 
 		// Check for ATCP messages
 		privateAPI.handle_ATCP(data)
