@@ -20,8 +20,7 @@ export default {
     scrollUpdate () {
       let elem = this.$el
       elem.scrollTop = elem.scrollHeight
-
-      console.log('UPDATING ScrollPanel...')
+      this.$emit('scrollPanelUpdate')
     }
   }
 }

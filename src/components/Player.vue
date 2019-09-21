@@ -45,7 +45,8 @@
 
         <!-- Message output container -->
         <ScrollPanel
-          :data="scrollData"
+          :data="scrollPanelData"
+          @scrollPanelUpdate="handleScrollPanelUpdate"
         />
       </div>
       <div class="grid-1d-cell grid-1d-cell--auto message-input">
@@ -100,7 +101,7 @@ export default {
   data: function () {
     return {
       connected: 0,
-      scrollData: '',
+      scrollPanelData: '',
       //messageBoxInputType: 'text',
     }
   },
@@ -139,9 +140,6 @@ export default {
 
         case 'messageReceived':
 
-          //console.log('message received')
-          this.scrollData += event.data.message
-
           // check if we're in password input mode. see function definition for
           // comment on this message checking's unreliability. better than nothing
           // though?
@@ -152,6 +150,18 @@ export default {
           // COMMENTING OUT ON PURPOSE - Chrome autofill nonsense causing too
           // many issues
           //this.checkForPasswordInput(event.data.message)
+
+          // check if the main Astaria message is coming through, wrap it in a
+          // <pre /> tag to preserve all whitespace (its an ASCII graphic)
+          if (event.data.message === 'Connected!') {
+            event.data.message += '<pre>';
+          }
+          if (event.data.message === 'The Kingdom of Astaria') {
+            event.data.message = '</pre>' + event.data.message;
+          }
+
+          //console.log('message received')
+          this.scrollPanelData += event.data.message
 
           return
 
@@ -186,6 +196,13 @@ export default {
       }
     }
     */
+
+    handleScrollPanelUpdate (event) {
+      console.log('ScrollPanel updated.')
+      this.$refs.messageInput.$el.focus()
+      // debugger;
+    }
+
   },
 
   created () {
