@@ -153,11 +153,11 @@ export default {
 
           // check if the main Astaria message is coming through, wrap it in a
           // <pre /> tag to preserve all whitespace (its an ASCII graphic)
-          if (event.data.message === 'Connected!') {
-            event.data.message += '<pre>';
+          if (event.data.message.includes('Connected!')) {
+            event.data.message += '<pre>'
           }
-          if (event.data.message === 'The Kingdom of Astaria') {
-            event.data.message = '</pre>' + event.data.message;
+          if (event.data.message.includes('The Kingdom of Astaria')) {
+            event.data.message = event.data.message + '</pre>'
           }
 
           //console.log('message received')
