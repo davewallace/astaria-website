@@ -1,68 +1,11 @@
 <template>
   <div class="player">
 
-    <div class="flex-stack">
-      <div class="flex-stack--auto">
+    <div class="grid-1d grid-1d--vertical">
+      <div class="grid-1d-cell grid-1d-cell--auto">
 
-        <div class="flex-columns">
-          <div class="flex-columns--auto">
-          </div>
-          <div class="flex-columns--grow">
-
-            <!-- Close button -->
-            <a href="#" class="button--close" @click.prevent="handleClose">
-              &#10060; <!-- cross emoji -->
-              <span class="visually-hidden">Close Player</span>
-            </a>
-
-          </div>
-        </div>
-      </div>
-
-      <div class="flex-stack--grow message-output">
-
-        <!-- Message output container -->
-        <ScrollPanel
-          :data="scrollData"
-        />
-      </div>
-      <div class="flex-stack--auto message-input">
-
-        <div class="flex-columns">
-          <div class="flex-columns--grow">
-
-            <!-- Message input container -->
-            <!--
-              I can't believe I'm doing this, but because the Chromium team refuse to
-              allow disabling of autocomplete with the browser password manager on
-              password fields, our usable and safe approach to switch between text and
-              password types on this main message box cannot be used. Using a password
-              field causes more issues that it solves.
-
-              The original Astaria gmud clients don't protect password entry anyway,
-              so I'm turning it off for this app too. Disappointing, sorry users.
-
-              Lots of development attempts and backlash to fix the problem:
-              https://gist.github.com/niksumeiko/360164708c3b326bd1c8
-
-              Chromium threads:
-              https://bugs.chromium.org/p/chromium/issues/detail?id=468153#c164
-              https://bugs.chromium.org/p/chromium/issues/detail?id=587466
-            -->
-            <InputText
-              class="scroll-input"
-              ref="messageInput"
-              clearOnSubmit=true
-              autocomplete="do-not-disturb"
-              @handleEnter="handleDataSend"
-            />
-            <!--
-              :inputType="messageBoxInputType"
-            />
-            -->
-
-          </div>
-          <div class="flex-columns--auto connection-buttons">
+        <div class="grid-1d grid-1d--horizontal">
+          <div class="grid-1d-cell grid-1d-cell--auto connection-buttons">
 
             <!-- Connection status indicator -->
             <div class="status status--connected" v-if="connected === 2">
@@ -76,17 +19,66 @@
             </div>
 
             <!-- Connection toggle -->
-            <a href="#" class="button--disconnect" @click="disconnect()" v-if="connected === 2">
+            <a href="#" class="button--icon button--disconnect" @click="disconnect()" v-if="connected === 2">
               &#128268; <!-- plug emoji -->
               <span class="visually-hidden">Disconnect</span>
             </a>
-            <a href="#" class="button--connect" @click="connect()" v-else-if="connected === 0">
+            <a href="#" class="button--icon button--connect" @click="connect()" v-else-if="connected === 0">
               &#128268; <!-- plug emoji -->
               <span class="visually-hidden">Reconnect</span>
             </a>
 
           </div>
+          <div class="grid-1d-cell grid-1d-cell--grow">
+
+            <!-- Close button -->
+            <a href="#" class="button--icon button--close" @click.prevent="handleClose">
+              &#10060; <!-- cross emoji -->
+              <span class="visually-hidden">Close Player</span>
+            </a>
+
+          </div>
         </div>
+      </div>
+
+      <div class="grid-1d-cell grid-1d-cell--grow message-output">
+
+        <!-- Message output container -->
+        <ScrollPanel
+          :data="scrollData"
+        />
+      </div>
+      <div class="grid-1d-cell grid-1d-cell--auto message-input">
+
+        <!-- Message input container -->
+        <!--
+          I can't believe I'm doing this, but because the Chromium team refuse to
+          allow disabling of autocomplete with the browser password manager on
+          password fields, our usable and safe approach to switch between text and
+          password types on this main message box cannot be used. Using a password
+          field causes more issues that it solves.
+
+          The original Astaria gmud clients don't protect password entry anyway,
+          so I'm turning it off for this app too. Disappointing, sorry users.
+
+          Lots of development attempts and backlash to fix the problem:
+          https://gist.github.com/niksumeiko/360164708c3b326bd1c8
+
+          Chromium threads:
+          https://bugs.chromium.org/p/chromium/issues/detail?id=468153#c164
+          https://bugs.chromium.org/p/chromium/issues/detail?id=587466
+        -->
+        <InputText
+          class="scroll-input"
+          ref="messageInput"
+          clearOnSubmit=true
+          autocomplete="do-not-disturb"
+          @handleEnter="handleDataSend"
+        />
+        <!--
+          :inputType="messageBoxInputType"
+        />
+        -->
 
       </div>
     </div>
@@ -202,7 +194,7 @@ export default {
     PlayerAPI.subscribe(this.handlePlayerEvent)
 
     // Initial connection to PlayerAPI (PHUD WebSocket server)
-    this.connect()
+    //this.connect()
   },
 
   mounted () {
@@ -218,58 +210,61 @@ export default {
      className. This doesn't eliminate clashes. There's no way to stop this - super dumb.
 -->
 <style scoped>
+
+  /**
+   * Player container
+   **/
   .player {
     position: fixed;
-    top: 20px;
-    left: 20px;
-    width: calc(100vw - 40px);
-    height: calc(100vh - 40px);
-    padding: 1rem;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    padding: 1rem 1.5rem;
     background: black;
   }
 
   /**
    * Layouts
    **/
-  .flex-stack {
+  .grid-1d {
     display: flex;
-    flex-direction: column;
     height: 100%;
     max-height: 100%;
   }
-    .flex-stack--grow {
+.grid-1d--horizontal {
+  flex-direction: row;
+}
+.grid-1d--vertical {
+  flex-direction: column;
+}
+    .grid-1d-cell {
+      border: 1px dotted cyan;
+    }
+    .grid-1d-cell--grow {
       flex-grow: 1;
     }
-    .flex-stack--auto {
+    .grid-1d-cell--auto {
+      flex-basis: auto;
     }
 
-  .flex-columns {
-    display: flex;
+  /**
+   * Generic buttons and icon buttons
+   **/
+  .button--icon {
+    display: block;
+    width: 18px;
+    height: 18px;
+    font-size: 0.85em;
+    text-decoration: none;
   }
-    .flex-columns--grow {
-      flex-grow: 1;
-    }
-    .flex-columns--auto {
-    }
 
   /**
    * Player close
    **/
   .button--close {
     float: right;
-    width: 24px;
-    height: 20px;
-    margin-bottom: -1px;
-    padding-top: 3px;
-    padding-bottom: 3px;
-    font-size: 0.55em;
-    border: 1px solid #444;
-    border-bottom: black;
-    text-decoration: none;
-    text-align: center;
-    text-indent: 3px;
     filter: brightness(80%);
-    background: black;
   }
 
   /**
@@ -277,13 +272,11 @@ export default {
    **/
   .connection-buttons {
     position: relative;
-    padding-left: 10px;
+    padding-bottom: 5px;
   }
     .status {
-      display: block;
-      width: 18px;
-      height: 18px;
-      margin-top: 10px;
+      width: 20px;
+      height: 20px;
       border-radius: 9px;
     }
     .status--connecting {
@@ -295,22 +288,12 @@ export default {
     .status--disconnected {
       background: red;
     }
-    .button--connect,
-    .button--disconnect {
-      display: block;
-      width: 16px;
-      height: 16px;
-      text-decoration: none;
-    }
-    .button--connect,
-    .button--disconnect {
-      position: absolute;
-      left: 11px;
-      top: 8px;
-      width: 10px;
-      height: 10px;
-      font-size: 0.85em;
-    }
+      .button--connect,
+      .button--disconnect {
+        position: absolute;
+        left: 2px;
+        top: -2px;
+      }
 
   /**
    * Message output box

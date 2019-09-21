@@ -240,7 +240,7 @@ let privateAPI = {
 
 			// extra span tags at the end because the PHUD server sends out unclosed
       // tags as part of its last message...
-			let modifiedData = data.message+ '</span></span>'
+			let modifiedData = data.message+ '</span>'
 
 			privateAPI.publish('messageReceived', {message: modifiedData})
 		}
